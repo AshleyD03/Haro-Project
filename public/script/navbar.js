@@ -7,6 +7,7 @@ const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeig
 let ongoingTouches, minY, maxY, curY, goingDown; 
 window.addEventListener('load', initBar())
 window.addEventListener('resize', initBar())
+
 // Move bar and set vairables
 function initBar() {
     ongoingTouches = []
@@ -37,19 +38,26 @@ container.addEventListener('touchmove', e => {
     let touches = e.changedTouches;
 
     for (var i = 0; i < touches.length; i++) {
+
         let touch = touches[i]
         let id = touch.identifier;
-
+        let original = ongoingTouches.find(tch => tch.identifier === id);
+       
         // Check that the touch is valid
-        if (ongoingTouches.some(tch => tch.identifier === id)) {
+        if (original) {
+
             // Calculate Destination
-            let move = touch.pageY - minY;
-            let destY = minY + move;
+            let acceleration = 10
+            let dif = curY - touch.pageY
+            let destY = curY - ( acceleration * dif / Math.abs(dif) )
+            let move = destY - minY;
+            
 
             // If destination is valid
             if ((destY > minY) && (destY < maxY)) {
 
                 container.style.transform = `translateY(${move - maxY}px)`
+            
                 goingDown = false;
                 if (destY > curY) {
                     goingDown = true;
@@ -86,10 +94,12 @@ container.addEventListener('touchend', e => {
             if (reasonDown) {
                 // Go down 
                 keyframes = {transform: `translateY(-${minY}px)`};
+                curY = maxY
                 disFraction = 1 - disFraction; // flip disFraction
             } else {
                 // Go up
                 keyframes = {transform: `translateY(-${maxY}px)`};
+                curY = minY
             }
 
             // Duration Equation : y = 450x + 100
