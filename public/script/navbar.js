@@ -4,9 +4,10 @@ let bar = document.getElementById('bar');
 const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
 // Initliase bar position and variables
-let ongoingTouches, minY, maxY, curY, goingDown; 
+let ongoingTouches, minY, maxY, curY, barLock, goingDown; 
 window.addEventListener('load', initBar())
 window.addEventListener('resize', initBar())
+window.addEventListener('orientationchange', initBar())
 
 // Move bar and set vairables
 function initBar() {
@@ -14,11 +15,11 @@ function initBar() {
     minY = bar.clientHeight;
     maxY = hidden.clientHeight;
     curY = minY;
+    barLock = false;
     goingDown = false;
     let height = hidden.clientHeight;
     container.style.transform = `translateY(-${height}px)`
 }
-
 
 // On touch add new touches to ongoingTouches
 container.addEventListener('touchstart', e => {
@@ -31,32 +32,35 @@ container.addEventListener('touchstart', e => {
 }, false)
 
 
-
 // Move Touch EVENT 
 container.addEventListener('touchmove', e => {
+  try {
     e.preventDefault();
     let touches = e.changedTouches;
+
+    if (barLock) return
 
     for (var i = 0; i < touches.length; i++) {
 
         let touch = touches[i]
         let id = touch.identifier;
-        let original = ongoingTouches.find(tch => tch.identifier === id);
+        let tchIndex = ongoingTouches.findIndex(tch => tch.identifier === id);
        
         // Check that the touch is valid
-        if (original) {
+        if (tchIndex > -1) {
 
             // Calculate Destination
-            let acceleration = 10
-            let dif = curY - touch.pageY
+            let dif = ongoingTouches[tchIndex].pageY - touch.pageY
+            let acceleration = Math.abs(dif)
+            dif *= 2
+            let limit = 25;
+            if (Math.abs(dif) > limit) acceleration = limit;
             let destY = curY - ( acceleration * dif / Math.abs(dif) )
-            let move = destY - minY;
-            
 
             // If destination is valid
             if ((destY > minY) && (destY < maxY)) {
 
-                container.style.transform = `translateY(${move - maxY}px)`
+                container.style.transform = `translateY(${destY - maxY - minY}px)`
             
                 goingDown = false;
                 if (destY > curY) {
@@ -64,15 +68,20 @@ container.addEventListener('touchmove', e => {
                 } 
                 curY = destY;
             }
+            ongoingTouches[tchIndex] = copyTouch(touch)
 
         } else {
             console.log('unverified move')
         }
     }
+  } catch (error) {
+    console.error(error)
+  }
 }, false)
 
 // End Touch EVENT
 container.addEventListener('touchend', e => {
+  try {
     e.preventDefault();
     let touches = e.changedTouches;
 
@@ -87,18 +96,18 @@ container.addEventListener('touchend', e => {
             let options = {
                 easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)'       
             }
-            let keyframes;
+            let keyframes = [{transform: `translateY(${curY - maxY - minY}px)`}]
 
             // Decide the direction of translation
-            let reasonDown = ( !(curY <= maxY * 0.1) && ( (goingDown === true) || (curY >= maxY * 0.9) ));
+            let reasonDown = ( !(curY <= maxY * 0.15) && ( (goingDown === true) || (curY >= maxY * 0.85) ));
             if (reasonDown) {
                 // Go down 
-                keyframes = {transform: `translateY(-${minY}px)`};
+                keyframes.push({transform: `translateY(-${minY}px)`})
                 curY = maxY
                 disFraction = 1 - disFraction; // flip disFraction
             } else {
                 // Go up
-                keyframes = {transform: `translateY(-${maxY}px)`};
+                keyframes.push({transform: `translateY(-${maxY}px)`})
                 curY = minY
             }
 
@@ -108,6 +117,9 @@ container.addEventListener('touchend', e => {
             ongoingTouches.splice(copyTouch(touch), 1)
         }
     }
+  } catch (error) {
+    console.error(error)
+  }
 }, false)
 
 // copy key touch properties
@@ -120,7 +132,7 @@ function copyTouch({ identifier, pageX, pageY }) {
 function animateTo(element, keyframes, options) {
     const anim = element.animate(
         keyframes,
-        { ...options, fill: 'both'},
+        { ...options, fill: 'both' },
     );
     anim.addEventListener('finish', () => {
         anim.commitStyles();
