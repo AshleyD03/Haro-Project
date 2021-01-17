@@ -1,10 +1,12 @@
 let container = document.getElementById('container');
 let hidden = document.getElementById('hidden');
 let bar = document.getElementById('bar');
+let nav_links = document.getElementsByClassName('nav-link');
+let nav_summons = document.getElementsByClassName('nav-summon');
 const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
 // Initliase bar position and variables
-let ongoingTouches, minY, maxY, curY, barLock, goingDown; 
+let ongoingTouches, minY, maxY, curY, barLock, goingDown, showing, hiding; 
 window.addEventListener('load', initBar())
 window.addEventListener('resize', initBar())
 window.addEventListener('orientationchange', initBar())
@@ -14,13 +16,19 @@ function initBar() {
     ongoingTouches = []
     minY = bar.clientHeight;
     maxY = hidden.clientHeight + parseFloat(window.getComputedStyle(hidden).marginTop);
-    console.log(maxY)
-    console.log(window.getComputedStyle(hidden).marginTop)
     curY = minY;
     barLock = false;
     goingDown = false;
+    showing = 'nav-cont';
+    hiding = 'cart-cont';
+    document.getElementById(showing).style.display = 'block';
+    document.getElementById(hiding).style.display = 'none';
     container.style.transform = `translateY(-${maxY}px)`
 }
+
+
+
+// - = - Navbar Swipes - = -
 
 // On touch add new touches to ongoingTouches
 container.addEventListener('touchstart', e => {
@@ -128,16 +136,65 @@ function copyTouch({ identifier, pageX, pageY }) {
     return { identifier, pageX, pageY };
 }
 
-// bug free animation function from HTTP 203 series
-// https://www.youtube.com/watch?v=9-6CKCz58A8
-function animateTo(element, keyframes, options) {
-    const anim = element.animate(
-        keyframes,
-        { ...options, fill: 'both' },
-    );
-    anim.addEventListener('finish', () => {
-        anim.commitStyles();
-        anim.cancel();
-    });
-    return anim
+function doesTouchEndOnTarget(touchEvent) {
+    let touches = touchEvent.changedTouches;
+    let checkTarget = touch => (document.elementFromPoint(touch.pageX, touch.pageY) ===  touchEvent.target)
+    if (Array.from(touches).some(checkTarget)) return true
+    else return false
 }
+
+
+
+// - = - Navbar Summons - = - 
+// Do to all .nav_summon
+Array.from(nav_summons).some(summon => {
+
+    let reveal = summon.getAttribute('value')
+
+    // Ignore other touch starts
+    summon.addEventListener('touchstart', e => {
+        e.stopPropagation()
+    })
+
+    // Let Go event
+    summon.addEventListener('touchend', e => {
+        e.stopPropagation()
+
+        // Check if correct event to pulldown
+        if (!(doesTouchEndOnTarget(e)) || !reveal) return 
+
+        // Swap option showing / hiding
+        if (showing !== reveal) {
+            hiding = showing; showing = reveal;
+        }      
+
+        // Push up navbar
+        let options = {
+            easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)',
+            duration: 550       
+        }
+        let keyframes = [
+            {transform: `translateY(${curY - maxY - minY}px)`}, 
+            {transform: `translateY(-${minY}px)`}
+        ]
+        animateTo(container, keyframes, options);
+        curY = maxY;
+
+        // Swap contents
+        document.getElementById(showing).style.display = 'block';
+        document.getElementById(hiding).style.display = 'none';
+    })
+})
+
+// Make href's clickable instead of dragable
+Array.from(nav_links).some(link => {
+    let href = link.href;
+    link.addEventListener('touchstart', e => {
+        e.stopPropagation()
+    })
+    link.addEventListener('touchend', e => {
+        e.stopPropagation()
+        if (!(doesTouchEndOnTarget(e)) || !href) return 
+        window.location.href = href;
+    })
+})
