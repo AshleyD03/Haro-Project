@@ -19,8 +19,8 @@ function initBar() {
     curY = minY;
     barLock = false;
     goingDown = false;
-    showing = 'nav-cont';
-    hiding = 'cart-cont';
+    showing = 'cart-cont';
+    hiding = 'nav-cont';
     document.getElementById(showing).style.display = 'block';
     document.getElementById(hiding).style.display = 'none';
     container.style.transform = `translateY(-${maxY}px)`
