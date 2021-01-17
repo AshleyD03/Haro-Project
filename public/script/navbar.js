@@ -13,12 +13,13 @@ window.addEventListener('orientationchange', initBar())
 function initBar() {
     ongoingTouches = []
     minY = bar.clientHeight;
-    maxY = hidden.clientHeight;
+    maxY = hidden.clientHeight + parseFloat(window.getComputedStyle(hidden).marginTop);
+    console.log(maxY)
+    console.log(window.getComputedStyle(hidden).marginTop)
     curY = minY;
     barLock = false;
     goingDown = false;
-    let height = hidden.clientHeight;
-    container.style.transform = `translateY(-${height}px)`
+    container.style.transform = `translateY(-${maxY}px)`
 }
 
 // On touch add new touches to ongoingTouches
