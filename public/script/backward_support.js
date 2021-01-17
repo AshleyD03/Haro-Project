@@ -120,3 +120,17 @@ if (!Array.prototype.findIndex) {
     writable: true
   });
 }
+
+// bug free animation function from HTTP 203 series
+// https://www.youtube.com/watch?v=9-6CKCz58A8
+function animateTo(element, keyframes, options) {
+  const anim = element.animate(
+      keyframes,
+      { ...options, fill: 'both' },
+  );
+  anim.addEventListener('finish', () => {
+      anim.commitStyles();
+      anim.cancel();
+  });
+  return anim
+}
