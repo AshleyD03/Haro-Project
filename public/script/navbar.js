@@ -143,8 +143,6 @@ function doesTouchEndOnTarget(touchEvent) {
     else return false
 }
 
-
-
 // - = - Navbar Summons - = - 
 // Do to all .nav_summon
 Array.from(nav_summons).some(summon => {
@@ -171,7 +169,7 @@ Array.from(nav_summons).some(summon => {
         // Push up navbar
         let options = {
             easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)',
-            duration: 550       
+            duration: (1 - (curY - minY) / (maxY - minY)) * 450 + 100       
         }
         let keyframes = [
             {transform: `translateY(${curY - maxY - minY}px)`}, 
@@ -181,6 +179,10 @@ Array.from(nav_summons).some(summon => {
         curY = maxY;
 
         // Swap contents
+        let show = document.getElementById(showing);
+        let hide = document.getElementById(hiding);
+        keyframes
+
         document.getElementById(showing).style.display = 'block';
         document.getElementById(hiding).style.display = 'none';
     })
