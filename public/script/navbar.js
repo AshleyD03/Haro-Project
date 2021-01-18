@@ -3,6 +3,7 @@ let hidden = document.getElementById('hidden');
 let bar = document.getElementById('bar');
 let nav_links = document.getElementsByClassName('nav-link');
 let nav_summons = document.getElementsByClassName('nav-summon');
+let nav_containers = document.getElementsByClassName('nav-container');
 const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
 // Initliase bar position and variables
@@ -21,8 +22,7 @@ function initBar() {
     goingDown = false;
     showing = 'cart-cont';
     hiding = 'nav-cont';
-    document.getElementById(showing).style.display = 'block';
-    document.getElementById(hiding).style.display = 'none';
+    showAndHide(showing, hiding)
     container.style.transform = `translateY(-${maxY}px)`
 }
 
@@ -69,13 +69,16 @@ container.addEventListener('touchmove', e => {
             // If destination is valid
             if ((destY > minY) && (destY < maxY)) {
 
-                container.style.transform = `translateY(${destY - maxY - minY}px)`
-            
+                // Update direction and currentY
                 goingDown = false;
                 if (destY > curY) {
                     goingDown = true;
                 } 
                 curY = destY;
+
+                // Move container and change content opacity
+                container.style.transform = `translateY(${destY - maxY - minY}px)`;
+                document.getElementById(showing).style.opacity = (curY - minY) / (maxY - minY);
             }
             ongoingTouches[tchIndex] = copyTouch(touch)
 
@@ -105,7 +108,7 @@ container.addEventListener('touchend', e => {
             let options = {
                 easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)'       
             }
-            let keyframes = [{transform: `translateY(${curY - maxY - minY}px)`}]
+            let keyframes = [] //= [{transform: `translateY(${curY - maxY - minY}px)`}]
 
             // Decide the direction of translation
             let reasonDown = ( !(curY <= maxY * 0.15) && ( (goingDown === true) || (curY >= maxY * 0.85) ));
@@ -122,8 +125,9 @@ container.addEventListener('touchend', e => {
 
             // Duration Equation : y = 450x + 100
             options['duration'] = 450 * disFraction + 100;
-            animateTo(container, keyframes, options);
+            animateFromCurrent(container, keyframes, options);
             ongoingTouches.splice(copyTouch(touch), 1)
+            document.getElementById(showing).style.opacity = (curY - minY) / (maxY - minY);
         }
     }
   } catch (error) {
@@ -141,6 +145,15 @@ function doesTouchEndOnTarget(touchEvent) {
     let checkTarget = touch => (document.elementFromPoint(touch.pageX, touch.pageY) ===  touchEvent.target)
     if (Array.from(touches).some(checkTarget)) return true
     else return false
+}
+
+function showAndHide(showing, hiding) {
+    let show = document.getElementById(showing);
+    let hide = document.getElementById(hiding);
+    show.style.pointerEvents = 'auto';
+    hide.style.pointerEvents = 'none';
+    show.style.opacity = 1;
+    hide.style.opacity = 0; 
 }
 
 // - = - Navbar Summons - = - 
@@ -179,12 +192,7 @@ Array.from(nav_summons).some(summon => {
         curY = maxY;
 
         // Swap contents
-        let show = document.getElementById(showing);
-        let hide = document.getElementById(hiding);
-        keyframes
-
-        document.getElementById(showing).style.display = 'block';
-        document.getElementById(hiding).style.display = 'none';
+        showAndHide(showing, hiding)
     })
 })
 
