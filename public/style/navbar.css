@@ -34,9 +34,6 @@ body {
     margin-top: 3.5rem;
     height: calc(100vh - 4.5rem);
     width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
     color: black;
 }
 
@@ -107,21 +104,20 @@ body {
     transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.nav-container {
-    transition: opacity 1000ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
 #nav-cont {
-    
-    z-index: 5;
+    position: relative;
+    z-index: 2;
     height: 100%;
     width: 100%;
 }
 
 #cart-cont {
-    position: absolute;
-    z-index: 1;
+    height: 100%;
     width: 100%;
+}
+
+.nav-container {
+    transition: opacity 1000ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .nav-option {

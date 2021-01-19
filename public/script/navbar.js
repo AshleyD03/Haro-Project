@@ -4,6 +4,8 @@ let bar = document.getElementById('bar');
 let nav_links = document.getElementsByClassName('nav-link');
 let nav_summons = document.getElementsByClassName('nav-summon');
 let nav_containers = document.getElementsByClassName('nav-container');
+let nav_cont = document.getElementById('nav-cont');
+let cart_cont = document.getElementById('cart-cont');
 const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
 // Initliase bar position and variables
@@ -20,10 +22,12 @@ function initBar() {
     curY = minY;
     barLock = false;
     goingDown = false;
-    showing = 'cart-cont';
-    hiding = 'nav-cont';
+    hiding = 'cart-cont';
+    showing = 'nav-cont';
     showAndHide(showing, hiding)
     container.style.transform = `translateY(-${maxY}px)`
+    Array.from(nav_containers).forEach(cont => cont.style.height = hidden.clientHeight);
+    cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)`
 }
 
 
