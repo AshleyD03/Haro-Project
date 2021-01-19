@@ -215,3 +215,19 @@ function animateFromCurrent(element, keyframes, options) {
   })
   return anim = animateTo(element, newframes, options)
 } 
+
+// Show one element and hide the other
+function showAndHide(showID, hideID) {
+  showElement(showID)
+  hideElement(hideID) 
+}
+function showElement(id) {
+  let show = document.getElementById(id);
+  show.style.pointerEvents = 'auto';
+  show.style.opacity = 1;
+}
+function hideElement(id) {
+  let hide = document.getElementById(id);
+  hide.style.pointerEvents = 'none';
+  hide.style.opacity = 0;
+}
