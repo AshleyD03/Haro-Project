@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="56" height="27" fill="none"  xmlns:v="https://vecta.io/nano"><g opacity=".7" filter="url(#A)"><rect y="17.053" width="34.105" height="10.526" rx="5.263" transform="rotate(330 0 17.053)" fill="#6c6b68"/><rect width="34.105" height="10.526" rx="5.263" transform="matrix(-.866025 -.5 -.5 .866025 55.2205 17.0527)" fill="#6c6b68"/></g><defs><filter id="A" x="-2.074" y="-2.074" width="59.369" height="30.318" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0"/><feGaussianBlur in="BackgroundImage" stdDeviation="2"/><feComposite in2="SourceAlpha" operator="in"/><feBlend in="SourceGraphic"/></filter></defs></svg>
+<svg width="3829" height="1728" viewBox="0 0 3829 1728" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.6" filter="url(#filter0_b)">
+<path d="M0 1126.39L1862.63 50.9994C1910.45 23.3852 1971.61 39.7727 1999.23 87.6019L2246.57 516.01C2274.18 563.84 2257.8 624.999 2209.97 652.613L347.342 1728L0 1126.39Z" fill="#333333"/>
+<path d="M3828.86 1125.39L1966.23 49.9999C1918.4 22.3857 1857.24 38.7732 1829.63 86.6024L1582.29 515.011C1554.67 562.84 1571.06 623.999 1618.89 651.613L3481.52 1727L3828.86 1125.39Z" fill="#333333"/>
+</g>
+<defs>
+<filter id="filter0_b" x="-4" y="-4" width="3836.86" height="1736" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImage" stdDeviation="2"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur" result="shape"/>
+</filter>
+</defs>
+</svg>
