@@ -10,7 +10,7 @@ let basket = (function() {
     
         // basket.addItemToBasket('cloth', 'wewdawdw', 'this is description', 69, 69, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.barnorama.com%2Fwp-content%2Fuploads%2F2018%2F11%2FBeautiful-And-Sexy-45.jpg&f=1&nofb=1']) 
         // Add item to basket, used to check right data input
-        this.addItemToBasket = (name, id, description, price, quantity, imageList) => {
+        this.appendItem = (name, id, description, price, quantity, imageList) => {
             let copyid = this.basket.findIndex(item => item.id === id)
     
             // If the basket already has one in the basket
@@ -34,14 +34,19 @@ let basket = (function() {
         }
     
         // Lower quantity of item.id by quantity ammmount. If less then 1, remove it.
-        this.takeItemOutBasket = (id, quantity) => {
+        this.removeItem = (id, quantity) => {
+            console.log('test')
             let copyid = this.basket.findIndex(item => item.id === id);
-    
-            if (!copyid) return null
+
+            if (copyid === -1) return null
     
             // Change quantity or clear if none left
             this.basket[copyid].quantity -= quantity;
-            if (this.basket[copyid].quanity < 1) this.basket.splice(copyid, 1);
+            if (this.basket[copyid].quantity < 1) {
+                this.basket.splice(copyid, 1);
+                console.log('woah')
+            }
+            console.log(this.basket)
             return this.updateBasket()
         }
     
@@ -52,7 +57,6 @@ let basket = (function() {
             return this.updateBasket()
         }
     
-    
         //  Load Basket Visuals for Page
         this.loadBasket = () => {
             this.expireOldItems()
@@ -61,7 +65,7 @@ let basket = (function() {
             item_target.innerHTML = '';
     
             // If basket empty, make empty UI appear
-            if (!this.basket) {
+            if (!this.basket || this.basket.length < 1) {
                 this.basket = [];
                 cart_buttons.style.display = 'none';
                 cart_empty.style.display = 'block';
@@ -98,7 +102,7 @@ let basket = (function() {
             })
     
             // Remove last line
-            item_target.removeChild(item_target.lastChild);
+            if (this.basket.length > 0) item_target.removeChild(item_target.lastChild);
         }
     
         // Make code easier to read
