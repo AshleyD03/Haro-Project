@@ -81,12 +81,13 @@
                         </div>
                     </div>
 
-                    <div id="item-target">
+                    <div id="item-target"></div>
 
+                    <template id="template-cart-item">
                         <div class="cart-item">
                             <div class="item-title"> 
                                 <img src="../public/images/item/Shirt-white.png" alt="white shirt">
-                                <span > White shirt - Medium </span>
+                                <span> White shirt - Medium </span>
                             </div>
                             <div class="item-divide">
                                 <span> Price </span>
@@ -101,32 +102,15 @@
                                 <span> £10.00 </span>
                             </div>
                         </div>
-    
+                    </template>
+                    
+
+                    <template id="template-item-line">
                         <center>
                             <span class="item-line"></span>
                         </center>
-                        
-                        <div class="cart-item">
-                            <div class="item-title"> 
-                                <img src="../public/images/item/Shirt-white.png" alt="white shirt">
-                                <span > White shirt - Medium </span>
-                            </div>
-                            <div class="item-divide">
-                                <span> Price </span>
-                                <span> £10.00 </span>
-                            </div>
-                            <div class="item-divide">
-                                <span> Quanity </span> 
-                                <span> 1 </span>
-                            </div>
-                            <div class="item-divide">
-                                <span> Total </span> 
-                                <span> £10.00 </span>
-                            </div>
-                        </div>
-
-                    </div>
-
+                    </template>
+                    
                 </div>
 
                 <div id="cart-buttons">
@@ -173,13 +157,12 @@
             <img id="basket" src="../public/images/icons/Basket.svg" alt="Shopping Basket" class="nav-summon" value="cart-cont">
         </div>
     </div>
-    <div id="nav-blackout">
+    <div id="nav-blackout"></div>
 
-    </div>
-
-    <div id="content">
+    <main id="content">
         
-    </div>
+    </main>
     <script src="../public/script/navbar.js"></script>
+    <script src="../public/script/basket.js"></script>
 </body>
 </html>
