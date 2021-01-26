@@ -3,12 +3,15 @@ let basket = (function() {
         let cart_empty = document.getElementById('cart-empty');
         let cart_buttons = document.getElementById('cart-buttons');
         let item_target = document.getElementById('item-target');
+        let cart_total = document.getElementById('cart-total-target');
         let template_cart_item = document.getElementById('template-cart-item');
         let template_item_line = document.getElementById('template-item-line');
     
         this.basket;
+        this.currencySymbol = '£';
     
-        // basket.addItemToBasket('cloth', 'wewdawdw', 'this is description', 69, 69, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.barnorama.com%2Fwp-content%2Fuploads%2F2018%2F11%2FBeautiful-And-Sexy-45.jpg&f=1&nofb=1']) 
+        // basket.appendItem('cloth', 'wewdawdw', 'this is description', 1499, 1, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ebayimg.com%2Fimages%2Fi%2F252443206275-0-1%2Fs-l1000.jpg&f=1&nofb=1']) 
+        // basket.appendItem('cloth2', 'www3', 'this is description', 999, 2, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FCmykmwzWcAE6A2a.jpg&f=1&nofb=1'])
         // Add item to basket, used to check right data input
         this.appendItem = (name, id, description, price, quantity, imageList) => {
             let copyid = this.basket.findIndex(item => item.id === id)
@@ -56,6 +59,12 @@ let basket = (function() {
             this.basket.splice(copyid, 1);
             return this.updateBasket()
         }
+
+        // Clear the hole basket
+        this.clearBasket = () => {
+            this.basket = [];
+            this.updateBasket();
+        }
     
         //  Load Basket Visuals for Page
         this.loadBasket = () => {
@@ -75,6 +84,8 @@ let basket = (function() {
             // Make not-empty UI appear
             cart_buttons.style.display = 'block';
             cart_empty.style.display = 'none';
+    
+            let overallTotal = 0;
 
             // Loop through basket items
             this.basket.forEach(item => {
@@ -89,10 +100,11 @@ let basket = (function() {
     
                 img.src = item.imageurl[0];
                 name.innerHTML = item.name;
-                price.innerHTML = item.price;
+                price.innerHTML = `${this.currencySymbol}${this.penceToPound(item.price)}`;
                 quantity.innerHTML = item.quantity // Implement quantity
-                total = item.price * item.quantity 
-    
+                total.innerHTML = `${this.currencySymbol}${this.penceToPound(item.price * item.quantity)}`
+                overallTotal += item.price * item.quantity;
+
                 item_target.appendChild(template)
     
                 // Add line element for spacing
@@ -101,9 +113,13 @@ let basket = (function() {
                 // ===
             })
     
+            // Change basket total
+            cart_total.innerHTML = `${this.currencySymbol}${this.penceToPound(overallTotal)}`
+
             // Remove last line
             if (this.basket.length > 0) item_target.removeChild(item_target.lastChild);
         }
+
     
         // Make code easier to read
         this.updateBasket = () => {
@@ -122,6 +138,11 @@ let basket = (function() {
             } catch (e) {
                 return false
             }
+        }
+
+        this.penceToPound = (string) => {
+            string = new String(string);
+            return string.insert(-2, '.')
         }
     
         // Get json string from storage, and parse back to json
