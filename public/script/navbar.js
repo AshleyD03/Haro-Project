@@ -221,7 +221,20 @@ let navbar = (function () {
 
     function doesTouchEndOnTarget(touchEvent) {
         let touches = touchEvent.changedTouches;
-        let checkTarget = touch => (document.elementFromPoint(touch.pageX, touch.pageY) ===  touchEvent.target)
+
+        Array.from(touches).some(touch => {
+            console.log(touch.pageX)
+            console.log(touch.pageY)
+            console.log(document.elementFromPoint(touch.pageX, touch.pageY - window.pageYOffset))
+        })
+
+        let checkTarget = touch => {
+            let x = touch.pageX - window.pageXOffset;
+            let y = touch.pageY - window.pageYOffset;
+
+            let target = document.elementFromPoint(x, y);
+            if (target === touchEvent.target) return true
+        }
         if (Array.from(touches).some(checkTarget)) return true
         else return false
     }
