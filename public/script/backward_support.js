@@ -121,6 +121,25 @@ if (!Array.prototype.findIndex) {
   });
 }
 
+// Home Grown Prototype, though it's been done before :'I
+// Reference: https://stackoverflow.com/questions/3568921/how-to-remove-part-of-a-string
+
+if (!String.prototype['insert']) {
+
+  String.prototype.insert = function(index, string) {
+
+    if (this == null) { throw new TypeError('"this" is null or not defined'); }
+
+    // Check if negative indexing and alter to negative
+    var L = this.length;
+    if (index < 0) {index = L + index};
+    
+    // Split string using subrting
+    var K = this.substring(0, index) + string + this.substring(index, L);
+
+    return K
+  }
+}
 
 // Production steps of ECMA-262, Edition 5, 15.4.4.18
 // Reference: https://es5.github.io/#x15.4.4.18
