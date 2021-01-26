@@ -250,3 +250,17 @@ function hideElement(id) {
   hide.style.pointerEvents = 'none';
   hide.style.opacity = 0;
 }
+
+const debounce = (func, wait) => {
+  let timeout;
+
+  return executedFunction = (...args) => {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
