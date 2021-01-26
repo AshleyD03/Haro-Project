@@ -4,7 +4,7 @@
     let checkImages = () => {
 
         lazy_images.forEach(img => {
-            
+
             // Check if about to scroll on
             let scrollTop = window.pageYOffset;
 
@@ -28,9 +28,14 @@
 
     }
 
-    checkImages();
-
+    // Add event listeners
     document.addEventListener('scroll', checkImages);
     window.addEventListener('resize', checkImages);
     window.addEventListener('orientationChange', checkImages);
+
+    // Early load checks
+    checkImages()
+    window.addEventListener('load', checkImages())    
+
+    
 })()
