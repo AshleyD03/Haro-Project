@@ -1,7 +1,7 @@
 let navbar = (function () {
-    let container = document.getElementById('container');
-    let hidden = document.getElementById('hidden');
-    let bar = document.getElementById('bar');
+    let container = document.getElementById('mob-container');
+    let hidden = document.getElementById('mob-hidden');
+    let bar = document.getElementById('mob-bar');
     let nav_links = document.getElementsByClassName('nav-link');
     let nav_summons = document.getElementsByClassName('nav-summon');
     let nav_containers = document.getElementsByClassName('nav-container');
@@ -11,16 +11,35 @@ let navbar = (function () {
     let logo_main = document.getElementById('logo-main');
     let logo_arrow = document.getElementById('logo-arrow');
     let nav_blackout = document.getElementById('nav-blackout');
-    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
     // Initliase bar position and variables
-    let ongoingTouches, minY, maxY, curY, barLock, goingDown, showing, hiding; 
+    let ongoingTouches, minY, maxY, curY, barLock, goingDown, showing, hiding, vh, vw; 
     window.addEventListener('load', initBar())
     window.addEventListener('resize', initBar())
     window.addEventListener('orientationchange', initBar())
 
     // Move bar and set vairables
     function initBar() {
+        vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+        vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+
+        // Rotate mobile effects
+        if (vh > vw) {
+            // Portrait Effect
+            nav_cont.className = 'nav-container nav-cont-list1';
+            Array.from(nav_cont.children).forEach(option => {
+                if (option.classList.contains('nav-option2')) option.classList.remove('nav-option2');
+                option.classList.add('nav-option1')
+            })
+        } else {
+            // Landscape Effect
+            nav_cont.className = 'nav-container nav-cont-list2';
+            Array.from(nav_cont.children).forEach(option => {
+                if (option.classList.contains('nav-option2')) option.classList.remove('nav-option1');
+                option.classList.add('nav-option2')
+            })
+        }
+
         ongoingTouches = []
         minY = bar.clientHeight;
         maxY = hidden.clientHeight + parseFloat(window.getComputedStyle(hidden).marginTop);
@@ -35,8 +54,14 @@ let navbar = (function () {
         cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)`
     }
 
-    // - = - Navbar Swipes - = -
 
+
+
+
+
+
+
+    // - = - Navbar Swipes - = -
     // On touch add new touches to ongoingTouches
     container.addEventListener('touchstart', e => {
         e.preventDefault();
@@ -145,6 +170,8 @@ let navbar = (function () {
     }
     }, false)
 
+
+
     // - = - Navbar Summons - = - 
     // Do to all .nav_summon
     Array.from(nav_summons).some(summon => {
@@ -214,6 +241,7 @@ let navbar = (function () {
         })
     })
 
+    // - = - Functions - = - 
     // copy key touch properties
     function copyTouch({ identifier, pageX, pageY }) {
         return { identifier, pageX, pageY };

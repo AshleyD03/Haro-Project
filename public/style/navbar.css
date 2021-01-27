@@ -15,9 +15,17 @@ body {
 
 :root {
     --bar-height: 3.5rem;
+    --long-side: max(100vh, 100vw);
+    --small-side: min(100vh, 100vw);
 }
 
-#container {
+@media screen and (min-width: 1001px) {
+    body {
+      background-color: purple;
+    }
+}
+
+#mob-container {
     position: fixed;
     z-index: 3;
     overflow-x: hidden;
@@ -33,15 +41,15 @@ body {
     overflow-y: scroll;
 }
 
-#hidden {
+#mob-hidden {
     /* 3.5rem required to show all content*/
     margin-top: 3.5rem;
-    height: calc(100vh - 8.5rem);
+    height: calc(100vh - 6rem);
     width: 100%;
     color: black;
 }
 
-#bar {
+#mob-bar {
     height: var(--bar-height);
     display: flex;
     align-items: center;
@@ -76,6 +84,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: right;
 }
 
 #logo img {
@@ -148,13 +157,6 @@ body {
     transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-#nav-cont {
-    position: relative;
-    z-index: 2;
-    height: 100%;
-    width: 100%;
-}
-
 #cart-cont {
     height: 100%;
     width: 100%;
@@ -164,17 +166,80 @@ body {
     transition: opacity 1000ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.nav-option {
+.nav-cont-list2 {
+    position: relative;
+    z-index: 2;
+    height: 100%;
     width: 100%;
-    height: 12%;
-    background-color: #B5D8D1;
-    display: flex;
+
     align-items: center;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(5, 6rem);
+    grid-gap: 1rem;
+}
+
+.nav-option2 {
+    height: 6rem;
+    width: 100%;
+    display: block;
+
+    
+    background-color: #B5D8D1;
+    overflow: hidden;
     transition: boxShadow 1000ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.navoption2 a {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
 
-.nav-link {
+.nav-option2 a div {
+    display: none;
+}
+
+.nav-option2 a span {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-option2 a span img {
+    width: auto;
+    height: auto;
+    max-height: 4rem;
+    max-width: 4rem;
+}
+
+
+
+.nav-cont-list1 {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    padding-top: 5%;
+    justify-content: flex-start;
+}
+
+.nav-option1 {
+    width: 100%;
+    height: 4rem;
+    margin-bottom: 5%;
+    background-color: #B5D8D1;
+    overflow: hidden;
+    transition: boxShadow 1000ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-option1 a {
     width: 100%;
     height: 100%;
     display: flex;
@@ -186,8 +251,10 @@ body {
     color: #5B5B5B;
 }
 
-.nav-link span {
+.nav-option1 a span {
     width: 20%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     height: 60%;
     max-height: 70%;
 
@@ -196,7 +263,7 @@ body {
     justify-content: center;
 }
 
-.nav-link span img {
+.nav-option1 a span img {
     max-height: 90%;
     width: auto;
 }
@@ -309,6 +376,19 @@ body {
     background-color: #333333;
 }
 
+#cart-container {
+    height: 20vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#cart-container div {
+    margin: 0.5rem 1rem 0.5rem 1rem;
+}
+
 #cart-buttons {
     position: relative;
     z-index: 1;
@@ -318,13 +398,19 @@ body {
     line-height: 170%;
 }
 
-#cart-buttons div {
+.cart-bar {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     padding: 0.2rem 1rem 0.2rem 1rem;
     backdrop-filter: blur(7px);
+
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    justify-content: center;
+
+    width: calc(var(--small-side) * 6 / 10);
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 170%;
 }
 
 #cart-buttons center div{
