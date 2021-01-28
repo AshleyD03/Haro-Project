@@ -15,8 +15,10 @@ let navbar = (function () {
     // Initliase bar position and variables
     let ongoingTouches, minY, maxY, curY, barLock, goingDown, showing, hiding, vh, vw; 
     window.addEventListener('load', initBar())
-    window.addEventListener('resize', initBar())
-    window.addEventListener('orientationchange', initBar())
+    window.addEventListener('resize', e => {
+        let check_width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+        if (check_width !== vw) initBar();
+    })
 
     // Move bar and set vairables
     function initBar() {
@@ -28,14 +30,14 @@ let navbar = (function () {
             // Portrait Effect
             nav_cont.className = 'nav-container nav-cont-list1';
             Array.from(nav_cont.children).forEach(option => {
-                if (option.classList.contains('nav-option2')) option.classList.remove('nav-option2');
+                option.classList.remove('nav-option2');
                 option.classList.add('nav-option1')
             })
         } else {
             // Landscape Effect
             nav_cont.className = 'nav-container nav-cont-list2';
             Array.from(nav_cont.children).forEach(option => {
-                if (option.classList.contains('nav-option2')) option.classList.remove('nav-option1');
+                option.classList.remove('nav-option1');
                 option.classList.add('nav-option2')
             })
         }
