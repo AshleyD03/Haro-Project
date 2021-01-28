@@ -11,9 +11,12 @@ let navbar = (function () {
     let logo_main = document.getElementById('logo-main');
     let logo_arrow = document.getElementById('logo-arrow');
     let nav_blackout = document.getElementById('nav-blackout');
+    let cart_empty_image = document.getElementById('cart-empty-image');
 
     // Initliase bar position and variables
-    let ongoingTouches, minY, maxY, curY, barLock, goingDown, showing, hiding, vh, vw; 
+    let ongoingTouches, minY, maxY, curY, barLock, goingDown, vh, vw; 
+    let hiding = 'cart-cont';
+    let showing = 'nav-cont';
     window.addEventListener('load', initBar())
     window.addEventListener('resize', e => {
         let check_width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
@@ -25,6 +28,7 @@ let navbar = (function () {
         vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
         vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 
+        
         // Rotate mobile effects
         if (vh > vw) {
             // Portrait Effect
@@ -32,6 +36,7 @@ let navbar = (function () {
             Array.from(nav_cont.children).forEach(option => {
                 option.classList.remove('nav-option2');
                 option.classList.add('nav-option1')
+                cart_empty_image.style.display = 'block';
             })
         } else {
             // Landscape Effect
@@ -39,29 +44,24 @@ let navbar = (function () {
             Array.from(nav_cont.children).forEach(option => {
                 option.classList.remove('nav-option1');
                 option.classList.add('nav-option2')
+                cart_empty_image.style.display = 'none';
             })
         }
 
         ongoingTouches = []
         minY = bar.clientHeight;
         maxY = hidden.clientHeight + parseFloat(window.getComputedStyle(hidden).marginTop);
-        curY = minY;
         barLock = false;
         goingDown = false;
         hiding = 'cart-cont';
         showing = 'nav-cont';
         showAndHide(showing, hiding)
-        container.style.transform = `translateY(-${maxY}px)`
-        Array.from(nav_containers).forEach(cont => cont.style.height = hidden.clientHeight);
-        cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)`
+        pushNavbar(maxY, curY, 1)
+        curY = minY;
+        //Array.from(nav_containers).forEach(cont => cont.style.height = hidden.clientHeight);
+        cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)`    
+        logoArrowAppear(0, false)
     }
-
-
-
-
-
-
-
 
     // - = - Navbar Swipes - = -
     // On touch add new touches to ongoingTouches
@@ -141,14 +141,7 @@ let navbar = (function () {
             if (ongoingTouches.some(tch => tch.identifier === id)) {
                 
                 // A fraction displaying the percentage of page, from top (0) to bottom (1), that the slider covers
-                let disFraction = (curY - minY) / (maxY - minY);
-
-                // initialiise animation parts
-                let options = {
-                    easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)'       
-                }
-                let keyframes = [] //= [{transform: `translateY(${curY - maxY - minY}px)`}]
-                
+                let disFraction = (curY - minY) / (maxY - minY);     
 
                 // Decide the direction of translation
                 let reasonDown = ( !(curY <= maxY * 0.15) && ( (goingDown === true) || (curY >= maxY * 0.85) ));
@@ -240,6 +233,7 @@ let navbar = (function () {
 
             pushNavbar(maxY, minY, (curY - minY) / (maxY - minY));
             logoArrowAppear(0)
+            document.getElementById(showing).style.opacity = 0;
         })
     })
 

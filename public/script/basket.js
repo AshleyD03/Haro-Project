@@ -77,7 +77,7 @@ let basket = (function() {
             if (!this.basket || this.basket.length < 1) {
                 this.basket = [];
                 cart_buttons.style.display = 'none';
-                cart_empty.style.display = 'block';
+                cart_empty.style.display = 'flex';
                 return
             }
             
@@ -93,10 +93,11 @@ let basket = (function() {
                 
                 // === Mobile Styling
                 let img = template.children[0].children[0];
-                let name = template.children[0].children[1];
-                let price = template.children[1].children[1];
-                let quantity = template.children[2].children[1];
-                let total = template.children[3].children[1];
+                let name = template.children[0].children[1].children[0];
+                let afix = template.children[0].children[1];
+                let price = template.children[1].children[0].children[1];
+                let quantity = template.children[1].children[1].children[1];
+                let total = template.children[1].children[2].children[1];
     
                 img.src = item.imageurl[0];
                 name.innerHTML = item.name;
