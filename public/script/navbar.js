@@ -8,6 +8,7 @@ let navbar = (function () {
     let hamburger = document.getElementById('hamburger');
     let desktop_hamburger = document.getElementById('desktop-hamburger')
     let basket = document.getElementById('basket');
+    let basket_label = document.getElementById('basket-label');
     let nav_cont = document.getElementById('nav-cont');
     let cart_cont = document.getElementById('cart-cont');
     let cart_white = document.getElementById('cart-white');
@@ -16,6 +17,8 @@ let navbar = (function () {
     let nav_blackout = document.getElementById('nav-blackout');
     let cart_empty_image = document.getElementById('cart-empty-image');
     let desktop_bar = document.getElementById('desktop-bar');
+    let desktop_cart = document.getElementById('desktop-cart');
+    let desktop_exit = document.getElementById('desktop-exit');
 
     // Initliase bar position and variables
     let ongoingTouches, minY, maxY, curY, barLock, goingDown, vh, vw;
@@ -58,14 +61,17 @@ let navbar = (function () {
             }
             
             desktop_hamburger.style.display = 'none';
-            hamburger.style.display = 'block';
+            hamburger.style.opacity = 1;
+            hamburger.style.pointerEvents = 'auto';
             hideDesktopBar()
+            hideDesktopBasket()
         } 
 
         // Desktop Only Effects
         else {
             desktop_hamburger.style.display = 'block';
-            hamburger.style.display = 'none';
+            hamburger.style.opacity = 0;
+            hamburger.style.pointerEvents = 'none'
             showDesktopBar()
             desktop_hamburger.style.opacity = 0;
         }
@@ -82,6 +88,7 @@ let navbar = (function () {
         // Fix position and size changes
         showAndHide(showing, hiding) // Hide one option
         pushNavbar(maxY, curY, 1); curY = minY; // Move nav out of way, then adjust curY
+        desktop_cart.style.transform = `translateX(${desktop_cart.clientWidth}px)`
         cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)` // Move cart to middle
         logoArrowAppear(0, false) // Hide swipe arrow 
     }
@@ -296,7 +303,16 @@ let navbar = (function () {
     desktop_hamburger.addEventListener('touchend', e => {
         if (isDesktop) showDesktopBar();
     })
+    
+    Array.from([basket, basket_label])
+    .forEach(element => element.addEventListener('click', e => {
+        if (isDesktop) showDesktopBasket()
+    }))
 
+    Array.from([nav_blackout, desktop_exit])
+    .forEach(element => element.addEventListener('click', e => {
+        if (isDesktop) hideDesktopBasket()
+    }))
 
 
 
@@ -314,6 +330,8 @@ let navbar = (function () {
     }, 5)
 
     window.addEventListener('scroll', scrollEvent)
+
+
 
     // - = - Functions - = - 
     // copy key touch properties
@@ -375,6 +393,27 @@ let navbar = (function () {
         container.style.paddingBottom = '0px';
         desktop_hamburger.style.opacity = 1;
         desktop_hamburger.style.pointerEvents = 'auto';
+    }
+
+    function showDesktopBasket () {
+        nav_blackout.style.opacity = 1;
+        nav_blackout.style.pointerEvents = 'auto';
+
+        let options = {
+            easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)',
+            duration: 500
+        }
+        animateFromCurrent(desktop_cart, [{marginRight: `${desktop_cart.clientWidth}px`}], options)
+    }
+
+    function hideDesktopBasket () {
+        nav_blackout.style.opacity = 0;
+        nav_blackout.style.pointerEvents = 'none';
+        let options = {
+            easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)',
+            duration: 500
+        }
+        animateFromCurrent(desktop_cart, [{marginRight: `0px`}], options)
     }
 
     return ({

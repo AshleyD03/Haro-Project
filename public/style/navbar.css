@@ -10,11 +10,11 @@ body {
     background-color: #FFC266;
     font-family: 'Roboto', sans-serif;
     scroll-behavior: smooth;
-    color: #FFF2DF;
+    color: #5B5B5B;
 }
 
 :root {
-    --bar-height: 3.5rem;
+    --bar-height: 4rem;
     --hidden-height: calc(100vh - 9em);
     --long-side: max(100vh, 100vw);
     --small-side: min(100vh, 100vw);
@@ -24,6 +24,27 @@ body {
     body {
       height: 200vh;
     }
+}
+
+#desktop-cart {
+    position: fixed;
+    z-index: 6;
+    right: 0px;
+    width: min(40vw, 400px);
+    height: 100vh;
+    background-color: #FFF2DF;
+    /* background-color: #FFF9F4; */
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#desktop-exit {
+    cursor: pointer;
+    height: 4rem;
+    width: 4rem;
+}
+
+#desktop-exit img {
+    height: 100%;
 }
 
 #desktop-bar {
@@ -38,8 +59,11 @@ body {
 
 #desktop-bar a {
     color: inherit;
-    width: 15%;
-    margin: auto 0.5rem 0rem 0.5rem;
+    width: min(20vw, 300px);
+    margin-top: auto;
+    margin-bottom: 0rem;
+    margin-left: min(0.5rem, calc(1vw - 1rem));
+    margin-right: min(0.5rem, calc(1vw - 1rem));
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -69,12 +93,11 @@ body {
 }
 
 #desktop-hamburger label {
-    
     cursor: pointer;
 }
 
 .hv-bright:hover, .hv-bright:hover div, .hv-bright:hover span {
-    filter: brightness(107%);
+    filter: brightness(80%);
     transition: filter 500ms cubic-bezier(0.39, 0.575, 0.565, 1);
 }
 
@@ -127,6 +150,7 @@ body {
 
 #nav-blackout {
     position: fixed;
+    cursor: pointer;
     width: 100vw;
     height: 100vh;
     opacity: 0;
@@ -169,7 +193,41 @@ body {
 
 
 #basket {
+    cursor: pointer;
     height: 60%;
+    padding-bottom: 0.5rem;
+}
+
+#basket-label {
+    position: relative;
+    cursor: pointer;
+    z-index: -5;
+    z-index: 4;
+    width: 0px;
+    overflow: visible;
+    left: -1.3rem;
+    top: 1rem;
+}
+
+#basket-label div {
+
+    height: 1rem;
+    width: 1rem;
+    padding: 2px;
+    border-radius: 100%;
+
+    background-color: #505050;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-top: 1px;
+
+    color: white;
+    font-size: 75%;
+    font-weight: 1000;
+    user-select: none;
 }
 
 #hamburger {
