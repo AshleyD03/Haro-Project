@@ -6,6 +6,7 @@ let basket = (function() {
         let cart_total = document.getElementById('cart-total-target');
         let template_cart_item = document.getElementById('template-cart-item');
         let template_item_line = document.getElementById('template-item-line');
+        let basket_label = document.getElementById('basket-label');
     
         this.basket;
         this.currencySymbol = '£';
@@ -49,7 +50,6 @@ let basket = (function() {
                 this.basket.splice(copyid, 1);
                 console.log('woah')
             }
-            console.log(this.basket)
             return this.updateBasket()
         }
     
@@ -86,6 +86,7 @@ let basket = (function() {
             cart_empty.style.display = 'none';
     
             let overallTotal = 0;
+            let basketLength = this.basket.length;
 
             // Loop through basket items
             this.basket.forEach(item => {
@@ -114,8 +115,9 @@ let basket = (function() {
                 // ===
             })
     
-            // Change basket total
+            // Change cart and basket total
             cart_total.innerHTML = `${this.currencySymbol}${this.penceToPound(overallTotal)}`
+            basket_label.children[0].innerHTML = basketLength;
 
             // Remove last line
             if (this.basket.length > 0) item_target.removeChild(item_target.lastChild);
@@ -189,7 +191,6 @@ let basket = (function() {
             ctx.drawImage(image, 0, 0);
     
             let dataUrl = canvas.toDataURL('image/png')
-            console.log(dataUrl)
             return dataUrl
         }
     
