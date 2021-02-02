@@ -5,6 +5,9 @@ let navbar = (function () {
     let nav_links = document.getElementsByClassName('nav-link');
     let nav_summons = document.getElementsByClassName('nav-summon');
     let nav_containers = document.getElementsByClassName('nav-container');
+    let hamburger = document.getElementById('hamburger');
+    let desktop_hamburger = document.getElementById('desktop-hamburger')
+    let basket = document.getElementById('basket');
     let nav_cont = document.getElementById('nav-cont');
     let cart_cont = document.getElementById('cart-cont');
     let cart_white = document.getElementById('cart-white');
@@ -12,15 +15,16 @@ let navbar = (function () {
     let logo_arrow = document.getElementById('logo-arrow');
     let nav_blackout = document.getElementById('nav-blackout');
     let cart_empty_image = document.getElementById('cart-empty-image');
+    let desktop_bar = document.getElementById('desktop-bar');
 
     // Initliase bar position and variables
-    let ongoingTouches, minY, maxY, curY, barLock, goingDown, vh, vw; 
+    let ongoingTouches, minY, maxY, curY, barLock, goingDown, vh, vw;
+    let isDesktop = false;
     let hiding = 'cart-cont';
     let showing = 'nav-cont';
     window.addEventListener('load', initBar())
     window.addEventListener('resize', e => {
-        let check_width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-        if (check_width !== vw) initBar();
+        initBar()
     })
 
     // Move bar and set vairables
@@ -28,26 +32,45 @@ let navbar = (function () {
         vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
         vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 
-        
-        // Rotate mobile effects
-        if (vh > vw) {
-            // Portrait Effect
-            nav_cont.className = 'nav-container nav-cont-list1';
-            Array.from(nav_cont.children).forEach(option => {
-                option.classList.remove('nav-option2');
-                option.classList.add('nav-option1')
-                cart_empty_image.style.display = 'block';
-            })
-        } else {
-            // Landscape Effect
-            nav_cont.className = 'nav-container nav-cont-list2';
-            Array.from(nav_cont.children).forEach(option => {
-                option.classList.remove('nav-option1');
-                option.classList.add('nav-option2')
-                cart_empty_image.style.display = 'none';
-            })
+        // Check if screen is desktop
+        if (vh > 660 && vw > 660 && isDesktop === false) isDesktop = true;
+
+        // Mobile Only Effects 
+        if (!isDesktop) {
+
+            // Rotate mobile effects
+            if (vh > vw) {
+                // Portrait Effect
+                nav_cont.className = 'nav-container nav-cont-list1';
+                Array.from(nav_cont.children).forEach(option => {
+                    option.classList.remove('nav-option2');
+                    option.classList.add('nav-option1')
+                    cart_empty_image.style.display = 'block';
+                })
+            } else {
+                // Landscape Effect
+                nav_cont.className = 'nav-container nav-cont-list2';
+                Array.from(nav_cont.children).forEach(option => {
+                    option.classList.remove('nav-option1');
+                    option.classList.add('nav-option2')
+                    cart_empty_image.style.display = 'none';
+                })
+            }
+            
+            desktop_hamburger.style.display = 'none';
+            hamburger.style.display = 'block';
+            hideDesktopBar()
+        } 
+
+        // Desktop Only Effects
+        else {
+            desktop_hamburger.style.display = 'block';
+            hamburger.style.display = 'none';
+            showDesktopBar()
+            desktop_hamburger.style.opacity = 0;
         }
 
+        // Re-asign values
         ongoingTouches = []
         minY = bar.clientHeight;
         maxY = hidden.clientHeight + parseFloat(window.getComputedStyle(hidden).marginTop);
@@ -55,23 +78,27 @@ let navbar = (function () {
         goingDown = false;
         hiding = 'cart-cont';
         showing = 'nav-cont';
-        showAndHide(showing, hiding)
-        pushNavbar(maxY, curY, 1)
-        curY = minY;
-        //Array.from(nav_containers).forEach(cont => cont.style.height = hidden.clientHeight);
-        cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)`    
-        logoArrowAppear(0, false)
+
+        // Fix position and size changes
+        showAndHide(showing, hiding) // Hide one option
+        pushNavbar(maxY, curY, 1); curY = minY; // Move nav out of way, then adjust curY
+        cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)` // Move cart to middle
+        logoArrowAppear(0, false) // Hide swipe arrow 
     }
 
     // - = - Navbar Swipes - = -
     // On touch add new touches to ongoingTouches
     container.addEventListener('touchstart', e => {
         e.preventDefault();
+
+        // If desktop mode - stop this feature
+        if (isDesktop) return e.stopPropagation();
+
+        // Add verified touch to list
         let touches = e.changedTouches;
         for (var i = 0; i < touches.length; i++) {
             ongoingTouches.push(copyTouch(touches[i]))
         }
-        console.log('click')
     }, false)
 
 
@@ -79,8 +106,11 @@ let navbar = (function () {
     container.addEventListener('touchmove', e => {
     try {
         e.preventDefault();
-        let touches = e.changedTouches;
+        
+        // If desktop mode - stop this feature
+        if (isDesktop) return e.stopPropagation();
 
+        let touches = e.changedTouches;
         if (barLock) return
 
         for (var i = 0; i < touches.length; i++) {
@@ -133,6 +163,10 @@ let navbar = (function () {
     container.addEventListener('touchend', e => {
     try {
         e.preventDefault();
+        
+        // If desktop mode - stop this feature
+        if (isDesktop) return e.stopPropagation();
+
         let touches = e.changedTouches;
 
         for (var i = 0; i < touches.length; i++) {
@@ -175,10 +209,16 @@ let navbar = (function () {
 
         // Ignore other touch starts
         summon.addEventListener('touchstart', e => {
+            // If desktop mode - stop this feature
+            if (isDesktop) return e.stopPropagation();
+
             summon.style.filter = 'brightness(75%)';
         })
 
         summon.addEventListener('touchend', e => {
+            // If desktop mode - stop this feature
+            if (isDesktop) return e.stopPropagation();
+
             summon.style.filter = '';
 
             if (!(doesTouchEndOnTarget(e))) return
@@ -199,12 +239,19 @@ let navbar = (function () {
     // Make href's clickable instead of dragable
     Array.from(nav_links).some(link => {
         let href = link.href;
-        link.addEventListener('touchstart', e => {
+        link.addEventListener('touchstart', e => {    
+            // If desktop mode - stop this feature
+            if (isDesktop) return ;
+
             e.stopPropagation()
             link.parentElement.style.boxShadow = 'inset -4px -4px 4px rgba(0, 0, 0, 0.25), inset 4px 4px 4px rgba(0, 0, 0, 0.25)';
         })
 
         link.addEventListener('touchend', e => {
+            // If desktop mode - stop this feature
+            if (isDesktop) return ;
+
+
             e.stopPropagation()
             link.parentElement.style.boxShadow = '';
 
@@ -222,10 +269,16 @@ let navbar = (function () {
 
         // No stop propagation's, as you can press the arrow and scroll at the same time
         element.addEventListener('touchstart', e => {
+            // If desktop mode - stop this feature
+            if (isDesktop) return e.stopPropagation();
+
             element.style.filter = 'brightness(50%)';
         })
 
-        element.addEventListener('touchend', e => {
+        element.addEventListener('touchend', e => {    
+            // If desktop mode - stop this feature
+            if (isDesktop) return e.stopPropagation();
+
             element.style.filter = 'brightness(100%)';
 
             if (!(doesTouchEndOnTarget(e))) return
@@ -237,6 +290,31 @@ let navbar = (function () {
         })
     })
 
+
+    // === Desktop Events ===
+    desktop_hamburger.addEventListener('click', showDesktopBar)
+    desktop_hamburger.addEventListener('touchend', e => {
+        if (isDesktop) showDesktopBar();
+    })
+
+
+
+
+    // - = - On Scroll - = -
+    let scrollEvent = debounce(() => {
+        // Desktop Only Scroll Events
+        if (isDesktop) {
+            let y = window.scrollY;
+            let height = window.innerHeight;
+
+            if (y >= 200) hideDesktopBar();
+            else showDesktopBar();
+        }
+        
+    }, 5)
+
+    window.addEventListener('scroll', scrollEvent)
+
     // - = - Functions - = - 
     // copy key touch properties
     function copyTouch({ identifier, pageX, pageY }) {
@@ -245,12 +323,6 @@ let navbar = (function () {
 
     function doesTouchEndOnTarget(touchEvent) {
         let touches = touchEvent.changedTouches;
-
-        Array.from(touches).some(touch => {
-            console.log(touch.pageX)
-            console.log(touch.pageY)
-            console.log(document.elementFromPoint(touch.pageX, touch.pageY - window.pageYOffset))
-        })
 
         let checkTarget = touch => {
             let x = touch.pageX - window.pageXOffset;
@@ -292,10 +364,21 @@ let navbar = (function () {
         curY = endY;
     }
 
+    function showDesktopBar () {
+        let height = desktop_bar.clientHeight;
+        container.style.paddingBottom = `${height}px`;
+        desktop_hamburger.style.opacity = 0;
+        desktop_hamburger.style.pointerEvents = 'none';
+    }
+
+    function hideDesktopBar () {
+        container.style.paddingBottom = '0px';
+        desktop_hamburger.style.opacity = 1;
+        desktop_hamburger.style.pointerEvents = 'auto';
+    }
+
     return ({
         doesTouchEndOnTarget: doesTouchEndOnTarget, 
-        pushNavbar: pushNavbar,
-        minY: minY, 
-        maxY: maxY
+        pushNavbar: pushNavbar
     })
 })()
