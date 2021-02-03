@@ -1,9 +1,9 @@
 let basket = (function() {
     function Basket () {
-        let cart_empty = document.getElementById('cart-empty');
-        let cart_buttons = document.getElementById('cart-buttons');
+        let cart_empties = Array.from(document.getElementsByClassName('cart-empty'));
+        let cart_buttons = Array.from(document.getElementsByClassName('cart-buttons'));
         let item_targets = Array.from(document.getElementsByClassName('item-target'));
-        let cart_totals = document.getElementsByName('cart-total-target');
+        let cart_totals = Array.from(document.getElementsByClassName('cart-total-target'));
         let template_cart_item = document.getElementById('template-cart-item');
         let template_item_line = document.getElementById('template-item-line');
         let basket_label = document.getElementById('basket-label');
@@ -40,7 +40,6 @@ let basket = (function() {
     
         // Lower quantity of item.id by quantity ammmount. If less then 1, remove it.
         this.removeItem = (id, quantity) => {
-            console.log('test')
             let copyid = this.basket.findIndex(item => item.id === id);
 
             if (copyid === -1) return null
@@ -49,7 +48,6 @@ let basket = (function() {
             this.basket[copyid].quantity -= quantity;
             if (this.basket[copyid].quantity < 1) {
                 this.basket.splice(copyid, 1);
-                console.log('woah')
             }
             return this.updateBasket()
         }
@@ -77,14 +75,16 @@ let basket = (function() {
             // If basket empty, make empty UI appear
             if (!this.basket || this.basket.length < 1) {
                 this.basket = [];
-                cart_buttons.style.display = 'none';
-                cart_empty.style.display = 'flex';
+                cart_buttons.forEach(but => but.style.display = 'none');
+                item_targets.forEach(target => target.style.display = 'none');
+                cart_empties.forEach(cart => cart.style.display = 'flex');
                 return
             }
             
             // Make not-empty UI appear
-            cart_buttons.style.display = 'block';
-            cart_empty.style.display = 'none';
+            cart_buttons.forEach(but => but.style.display = 'block');
+            cart_empties.forEach(cart => cart.style.display = 'none');
+            item_targets.forEach(target => target.style.display = 'block')
     
             let overallTotal = 0;
             let basketLength = this.basket.length;
@@ -93,7 +93,7 @@ let basket = (function() {
             this.basket.forEach(item => {
                 let template = template_cart_item.content.cloneNode(true).children[0];
                 
-                // === Mobile Styling
+                // === Mobile Styling ===
                 let img = template.children[0].children[0];
                 let name = template.children[0].children[1].children[0];
                 let affix = template.children[0].children[1];
@@ -121,7 +121,6 @@ let basket = (function() {
             cart_totals.forEach(total => total.innerHTML = totalString);
             basket_label.children[0].innerHTML = basketLength;
 
-            item_targets.forEach(target => console.log(target))
             // Remove last line
             if (this.basket.length > 0) item_targets.forEach(target => target.removeChild(target.lastChild));
         }

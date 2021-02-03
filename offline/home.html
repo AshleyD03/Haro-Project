@@ -67,9 +67,9 @@
                 </div>
             </div>
             <div id="cart-cont" class="nav-container">
-                <div id="cart-white">
+                <div id="cart-white" class="cart-white">
 
-                    <div id="cart-empty">
+                    <div class="cart-empty">
                         <img id="cart-empty-image" src="../public/images/icons/Colour-wheel.svg" alt="A colour-wheel">
                         <div>
                             Your Cart is empty
@@ -96,14 +96,12 @@
                                     <span> 1 </span>
                                 </div>
                                 <div class="item-divide">
-                                    <span> Total </span> 
+                                    <span> Total </span>   
                                     <span> £10.00 </span>
                                 </div>
                             </div>
-                            
                         </div>
                     </template>
-                    
 
                     <template id="template-item-line">
                         <center>
@@ -217,27 +215,32 @@
 
             <div id="dc-target" class="item-target"></div>
 
-            
+            <div class="cart-empty">
+                <img id="cart-empty-image" src="../public/images/icons/Colour-wheel.svg" alt="A colour-wheel">
+                <div style="padding-bottom: 40vh;">
+                    Your Cart is empty
+                </div>
+            </div>
         </div>
 
         <div id="dc-buttons" class="cart-buttons">
-                <div id="cart-total" class="cart-bar">
-                    <span>
-                        Current Total:
-                    </span>
-                    <span class="cart-total-target">
-                        £10
-                    </span>
+            <div id="cart-total" class="cart-bar">
+                <span>
+                    Current Total:
+                </span>
+                <span class="cart-total-target">
+                    £10
+                </span>
+            </div>
+            <div id="cart-container">
+                <div class="cart-view cart-bar">
+                    Edit Cart
                 </div>
-                <div id="cart-container">
-                    <div class="cart-view cart-bar">
-                        Edit Cart
-                    </div>
-                    <div class="cart-checkout cart-bar">
-                        Checkout Now
-                    </div>
+                <div class="cart-checkout cart-bar">
+                    Checkout Now
                 </div>
             </div>
+        </div>
 
 
         

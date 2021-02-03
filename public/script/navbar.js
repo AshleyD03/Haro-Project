@@ -77,7 +77,6 @@ let navbar = (function () {
         else {
 
             Array.from(nav_containers).forEach(cont => {
-                console.log(cont)
                 cont.style.pointerEvents = 'none';
             }) // Hidden Area overflow 
             desktop_hamburger.style.display = 'block';
@@ -353,7 +352,7 @@ let navbar = (function () {
             let y = window.scrollY;
             let height = window.innerHeight;
 
-            // Add compare to last sig swipe check
+            // Add compare to last sig swipe
 
             if (y >= 200) hideDesktopBar();
             else showDesktopBar();
