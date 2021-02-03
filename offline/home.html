@@ -76,7 +76,7 @@
                         </div>
                     </div>
 
-                    <div id="item-target"></div>
+                    <div id="item-target" class="item-target"></div>
 
                     <template id="template-cart-item">
                         <div class="cart-item">
@@ -113,26 +113,25 @@
                     
                 </div>
 
-                <div id="cart-buttons">
+                <div id="cart-buttons" class="cart-buttons">
 
                     <div id="cart-total" class="cart-bar">
                         <span>
                             Current Total:
                         </span>
-                        <span id="cart-total-target">
+                        <span class="cart-total-target">
                             £10
                         </span>
                     </div>
                     <div id="cart-container">
-                        <div id="cart-view" class="cart-bar">
+                        <div class="cart-view cart-bar">
                             Edit Cart
                         </div>
-                        <div id="cart-checkout" class="cart-bar">
+                        <div class="cart-checkout cart-bar">
                             Checkout Now
                         </div>
                     </div>
-                        
-                    
+
                 </div>
             </div>
             <div id="pull-arrow">
@@ -204,9 +203,44 @@
         </div>
     </div>
     <div id="desktop-cart">
-        <div id="desktop-exit">
-            <img src="../public/images/icons/Cross.svg">
+        <div id="dc-white">
+
+            <div id="dc-top">
+                <h1>
+                    Basket
+                </h1>
+    
+                <div id="desktop-exit">
+                    <img src="../public/images/icons/Cross.svg">
+                </div>
+            </div>
+
+            <div id="dc-target" class="item-target"></div>
+
+            
         </div>
+
+        <div id="dc-buttons" class="cart-buttons">
+                <div id="cart-total" class="cart-bar">
+                    <span>
+                        Current Total:
+                    </span>
+                    <span class="cart-total-target">
+                        £10
+                    </span>
+                </div>
+                <div id="cart-container">
+                    <div class="cart-view cart-bar">
+                        Edit Cart
+                    </div>
+                    <div class="cart-checkout cart-bar">
+                        Checkout Now
+                    </div>
+                </div>
+            </div>
+
+
+        
     </div>
     <div id="nav-blackout"></div>
 

@@ -2,8 +2,8 @@ let basket = (function() {
     function Basket () {
         let cart_empty = document.getElementById('cart-empty');
         let cart_buttons = document.getElementById('cart-buttons');
-        let item_target = document.getElementById('item-target');
-        let cart_total = document.getElementById('cart-total-target');
+        let item_targets = Array.from(document.getElementsByClassName('item-target'));
+        let cart_totals = document.getElementsByName('cart-total-target');
         let template_cart_item = document.getElementById('template-cart-item');
         let template_item_line = document.getElementById('template-item-line');
         let basket_label = document.getElementById('basket-label');
@@ -14,7 +14,7 @@ let basket = (function() {
         // basket.appendItem('cloth', 'wewdawdw', 'this is description', 1499, 1, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ebayimg.com%2Fimages%2Fi%2F252443206275-0-1%2Fs-l1000.jpg&f=1&nofb=1']) 
         // basket.appendItem('cloth2', 'www3', 'this is description', 999, 2, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FCmykmwzWcAE6A2a.jpg&f=1&nofb=1'])
         // Add item to basket, used to check right data input
-        this.appendItem = (name, id, description, price, quantity, imageList) => {
+        this.appendItem = (name, id, description, price, quantity, imageList, affix=[]) => {
             let copyid = this.basket.findIndex(item => item.id === id)
     
             // If the basket already has one in the basket
@@ -30,7 +30,8 @@ let basket = (function() {
                 description: description,
                 price: price,
                 quantity: quantity,
-                imageurl: imageList
+                imageurl: imageList,
+                affix: affix
             }
     
             this.basket.push(item)
@@ -71,7 +72,7 @@ let basket = (function() {
             this.expireOldItems()
     
             this.basket = this.getItem('basket');
-            item_target.innerHTML = '';
+            item_targets.forEach(target => target.innerHTML = '');
     
             // If basket empty, make empty UI appear
             if (!this.basket || this.basket.length < 1) {
@@ -95,7 +96,7 @@ let basket = (function() {
                 // === Mobile Styling
                 let img = template.children[0].children[0];
                 let name = template.children[0].children[1].children[0];
-                let afix = template.children[0].children[1];
+                let affix = template.children[0].children[1];
                 let price = template.children[1].children[0].children[1];
                 let quantity = template.children[1].children[1].children[1];
                 let total = template.children[1].children[2].children[1];
@@ -106,21 +107,23 @@ let basket = (function() {
                 quantity.innerHTML = item.quantity // Implement quantity
                 total.innerHTML = `${this.currencySymbol}${this.penceToPound(item.price * item.quantity)}`
                 overallTotal += item.price * item.quantity;
+                item.affix.forEach(text => affix.appendChild(createAffix(text)));
 
-                item_target.appendChild(template)
+                item_targets.forEach(target => target.appendChild(template.cloneNode(true)));
     
                 // Add line element for spacing
                 let line = template_item_line.content.cloneNode(true).children[0];
-                item_target.appendChild(line)
-                // ===
+                item_targets.forEach(target => target.appendChild(line.cloneNode(true)));
             })
     
             // Change cart and basket total
-            cart_total.innerHTML = `${this.currencySymbol}${this.penceToPound(overallTotal)}`
+            let totalString = `${this.currencySymbol}${this.penceToPound(overallTotal)}`;
+            cart_totals.forEach(total => total.innerHTML = totalString);
             basket_label.children[0].innerHTML = basketLength;
 
+            item_targets.forEach(target => console.log(target))
             // Remove last line
-            if (this.basket.length > 0) item_target.removeChild(item_target.lastChild);
+            if (this.basket.length > 0) item_targets.forEach(target => target.removeChild(target.lastChild));
         }
 
     
@@ -195,6 +198,15 @@ let basket = (function() {
         }
     
         this.loadBasket();
+
+        // Create an affix to be added on items
+        createAffix = (string='') => {
+            let node = document.createElement('div');
+            node.classList.add('cart-afix');
+            node.innerHTML = string;
+            
+            return string
+        }
     }
     // Realy good guide, credit due
     // http://www.ashleysheridan.co.uk/blog/Using+Local+Storage+to+Cache+Images

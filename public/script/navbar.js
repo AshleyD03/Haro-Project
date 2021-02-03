@@ -71,7 +71,6 @@ let navbar = (function () {
             hamburger.style.opacity = 1;
             hamburger.style.pointerEvents = 'all';
             hideDesktopBar()
-            hideDesktopBasket()
         } 
 
         // Desktop Only Effects
@@ -103,6 +102,7 @@ let navbar = (function () {
         desktop_cart.style.transform = `translateX(${desktop_cart.clientWidth}px)`
         cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)` // Move cart to middle
         logoArrowAppear(0, false) // Hide swipe arrow 
+        hideDesktopBasket() // Hide desktop basket
     }
 
     // - = - Navbar Swipes - = -
@@ -234,15 +234,7 @@ let navbar = (function () {
             summon.style.filter = 'brightness(75%)';
         })
 
-        summon.addEventListener('touchend', e => {
-            // If desktop mode - stop this feature
-            if (isDesktop) return e.stopPropagation();
-
-            summon.style.filter = '';
-
-            if (!(doesTouchEndOnTarget(e))) return
-            e.stopPropagation()
-
+        let swap = () => {
             // Swap option showing / hiding
             if (showing !== reveal) {
                 hiding = showing; showing = reveal;
@@ -252,7 +244,24 @@ let navbar = (function () {
             pushNavbar(minY, maxY, (1 - (curY - minY) / (maxY - minY)))
             logoArrowAppear(1)
             showAndHide(showing, hiding)
+        }
+
+        summon.addEventListener('touchend', e => {
+            // If desktop mode - stop this feature
+            if (isDesktop) return e.stopPropagation();
+
+            summon.style.filter = '';
+
+            if (!(doesTouchEndOnTarget(e))) return
+            e.stopPropagation()
+            swap()
         })
+
+        summon.addEventListener('click', e => {
+            if (isDesktop) return
+            swap()
+        })
+
     })
 
     // Make href's clickable instead of dragable
@@ -284,6 +293,7 @@ let navbar = (function () {
     cart_white.addEventListener('touchmove', e => e.stopPropagation())
     cart_white.addEventListener('touchend', e => e.stopPropagation())
 
+    // Black Arrow and Blackout should push navbar up on touch
     Array.from([nav_blackout, logo_arrow]).forEach(element => {
 
         // No stop propagation's, as you can press the arrow and scroll at the same time
@@ -294,6 +304,12 @@ let navbar = (function () {
             element.style.filter = 'brightness(50%)';
         })
 
+        let moveUp = () => {
+            pushNavbar(maxY, minY, (curY - minY) / (maxY - minY));
+            logoArrowAppear(0)
+            document.getElementById(showing).style.opacity = 0;
+        }
+
         element.addEventListener('touchend', e => {    
             // If desktop mode - stop this feature
             if (isDesktop) return e.stopPropagation();
@@ -302,10 +318,12 @@ let navbar = (function () {
 
             if (!(doesTouchEndOnTarget(e))) return
             e.stopPropagation()
+            moveUp()
+        })
 
-            pushNavbar(maxY, minY, (curY - minY) / (maxY - minY));
-            logoArrowAppear(0)
-            document.getElementById(showing).style.opacity = 0;
+        element.addEventListener('click', e => {
+            if (isDesktop) return 
+            moveUp()
         })
     })
 
@@ -334,6 +352,8 @@ let navbar = (function () {
         if (isDesktop) {
             let y = window.scrollY;
             let height = window.innerHeight;
+
+            // Add compare to last sig swipe check
 
             if (y >= 200) hideDesktopBar();
             else showDesktopBar();
