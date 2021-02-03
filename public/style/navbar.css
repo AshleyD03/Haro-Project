@@ -194,6 +194,7 @@ body {
 
 #basket {
     cursor: pointer;
+    pointer-events: all;
     height: 60%;
     padding-bottom: 0.5rem;
 }

@@ -35,8 +35,14 @@ let navbar = (function () {
         vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
         vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 
+
+        // Fix position and size changes
+        // Scheduled before format specific changes
+        showAndHide(showing, hiding) // Hide one option
+
         // Check if screen is desktop
-        if (vh > 660 && vw > 660 && isDesktop === false) isDesktop = true;
+        isDesktop = false;
+        if (vh > 660 && vw > 660) isDesktop = true;
 
         // Mobile Only Effects 
         if (!isDesktop) {
@@ -60,15 +66,21 @@ let navbar = (function () {
                 })
             }
             
+            Array.from(nav_containers).forEach(cont => cont.style.pointerEvents = 'all')
             desktop_hamburger.style.display = 'none';
             hamburger.style.opacity = 1;
-            hamburger.style.pointerEvents = 'auto';
+            hamburger.style.pointerEvents = 'all';
             hideDesktopBar()
             hideDesktopBasket()
         } 
 
         // Desktop Only Effects
         else {
+
+            Array.from(nav_containers).forEach(cont => {
+                console.log(cont)
+                cont.style.pointerEvents = 'none';
+            }) // Hidden Area overflow 
             desktop_hamburger.style.display = 'block';
             hamburger.style.opacity = 0;
             hamburger.style.pointerEvents = 'none'
@@ -86,7 +98,7 @@ let navbar = (function () {
         showing = 'nav-cont';
 
         // Fix position and size changes
-        showAndHide(showing, hiding) // Hide one option
+        // Scheduled after format specific changes
         pushNavbar(maxY, curY, 1); curY = minY; // Move nav out of way, then adjust curY
         desktop_cart.style.transform = `translateX(${desktop_cart.clientWidth}px)`
         cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)` // Move cart to middle
@@ -362,13 +374,13 @@ let navbar = (function () {
         if (opacity === 0) pointer = false;
         // Change pointers if true
         if (pointer === true) {
-            logo_arrow.style.pointerEvents = 'auto';
-            nav_blackout.style.pointerEvents = 'auto';
+            logo_arrow.style.pointerEvents = 'all';
+            nav_blackout.style.pointerEvents = 'all';
             logo_main.style.pointerEvents = 'none';
         } else {
             logo_arrow.style.pointerEvents = 'none';
             nav_blackout.style.pointerEvents = 'none';
-            logo_main.style.pointerEvents = 'auto';
+            logo_main.style.pointerEvents = 'all';
         }
     }
 
@@ -392,12 +404,12 @@ let navbar = (function () {
     function hideDesktopBar () {
         container.style.paddingBottom = '0px';
         desktop_hamburger.style.opacity = 1;
-        desktop_hamburger.style.pointerEvents = 'auto';
+        desktop_hamburger.style.pointerEvents = 'all';
     }
 
     function showDesktopBasket () {
         nav_blackout.style.opacity = 1;
-        nav_blackout.style.pointerEvents = 'auto';
+        nav_blackout.style.pointerEvents = 'all';
 
         let options = {
             easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)',

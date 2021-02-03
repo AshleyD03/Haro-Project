@@ -242,7 +242,7 @@ function showAndHide(showID, hideID) {
 }
 function showElement(id) {
   let show = document.getElementById(id);
-  show.style.pointerEvents = 'auto';
+  show.style.pointerEvents = 'all';
   show.style.opacity = 1;
 }
 function hideElement(id) {
