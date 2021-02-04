@@ -102,6 +102,7 @@ let navbar = (function () {
         cart_cont.style.transform = `translateY(-${nav_cont.clientHeight}px)` // Move cart to middle
         logoArrowAppear(0, false) // Hide swipe arrow 
         hideDesktopBasket() // Hide desktop basket
+        showAndHide(showing, hiding) // Hide one option
     }
 
     // - = - Navbar Swipes - = -

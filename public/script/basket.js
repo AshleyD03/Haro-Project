@@ -12,7 +12,7 @@ let basket = (function() {
         this.currencySymbol = '£';
     
         // basket.appendItem('cloth', 'wewdawdw', 'this is description', 1499, 1, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ebayimg.com%2Fimages%2Fi%2F252443206275-0-1%2Fs-l1000.jpg&f=1&nofb=1']) 
-        // basket.appendItem('cloth2', 'www3', 'this is description', 999, 2, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FCmykmwzWcAE6A2a.jpg&f=1&nofb=1'])
+        // basket.appendItem('cloth2', 'Epic White Shirt', 'this is description', 999, 2, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flerageshirts.com%2Fwp-content%2Fuploads%2F2013%2F10%2Fchallenge-accepted-shirt-meme-rage-face-funny-tee.jpg&f=1&nofb=1'], ['Medium'])
         // Add item to basket, used to check right data input
         this.appendItem = (name, id, description, price, quantity, imageList, affix=[]) => {
             let copyid = this.basket.findIndex(item => item.id === id)
@@ -87,13 +87,14 @@ let basket = (function() {
             item_targets.forEach(target => target.style.display = 'block')
     
             let overallTotal = 0;
-            let basketLength = this.basket.length;
+            let basketLength = 0;
 
             // Loop through basket items
             this.basket.forEach(item => {
+                // Create Template Clone
                 let template = template_cart_item.content.cloneNode(true).children[0];
                 
-                // === Mobile Styling ===
+                // Get Element Parts
                 let img = template.children[0].children[0];
                 let name = template.children[0].children[1].children[0];
                 let affix = template.children[0].children[1];
@@ -101,19 +102,24 @@ let basket = (function() {
                 let quantity = template.children[1].children[1].children[1];
                 let total = template.children[1].children[2].children[1];
     
+                // Add Values
                 img.src = item.imageurl[0];
                 name.innerHTML = item.name;
                 price.innerHTML = `${this.currencySymbol}${this.penceToPound(item.price)}`;
                 quantity.innerHTML = item.quantity // Implement quantity
                 total.innerHTML = `${this.currencySymbol}${this.penceToPound(item.price * item.quantity)}`
-                overallTotal += item.price * item.quantity;
                 item.affix.forEach(text => affix.appendChild(createAffix(text)));
 
+                // Append Element
                 item_targets.forEach(target => target.appendChild(template.cloneNode(true)));
     
                 // Add line element for spacing
                 let line = template_item_line.content.cloneNode(true).children[0];
                 item_targets.forEach(target => target.appendChild(line.cloneNode(true)));
+
+                // Increase Iteration Counter
+                overallTotal += item.price * item.quantity;
+                basketLength += 1 * item.quantity;
             })
     
             // Change cart and basket total
@@ -199,12 +205,12 @@ let basket = (function() {
         this.loadBasket();
 
         // Create an affix to be added on items
-        createAffix = (string='') => {
+        function createAffix (string='') {
             let node = document.createElement('div');
             node.classList.add('cart-afix');
             node.innerHTML = string;
             
-            return string
+            return node
         }
     }
     // Realy good guide, credit due
