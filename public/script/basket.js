@@ -13,6 +13,7 @@ let basket = (function() {
     
         // basket.appendItem('cloth', 'wewdawdw', 'this is description', 1499, 1, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ebayimg.com%2Fimages%2Fi%2F252443206275-0-1%2Fs-l1000.jpg&f=1&nofb=1']) 
         // basket.appendItem('cloth2', 'Epic White Shirt', 'this is description', 999, 2, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flerageshirts.com%2Fwp-content%2Fuploads%2F2013%2F10%2Fchallenge-accepted-shirt-meme-rage-face-funny-tee.jpg&f=1&nofb=1'], ['Medium'])
+        // basket.appendItem('Gamer Shirt',' wew', 'wew', 999, 1, ['https://cdn.discordapp.com/attachments/540227962612744192/806844486402572288/s-l400.png'],['Extra RAM'])
         // Add item to basket, used to check right data input
         this.appendItem = (name, id, description, price, quantity, imageList, affix=[]) => {
             let copyid = this.basket.findIndex(item => item.id === id)
@@ -203,7 +204,7 @@ let basket = (function() {
         }
     
         this.loadBasket();
-
+ 
         // Create an affix to be added on items
         function createAffix (string='') {
             let node = document.createElement('div');

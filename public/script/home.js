@@ -1,0 +1,1 @@
+let slideshow = new Slideshow('slideshow')

@@ -35,8 +35,6 @@ body {
     width: min(25vw, 300px);
     margin-top: auto;
     margin-bottom: 0rem;
-    margin-left: min(0.5rem, calc(1vw - 1rem));
-    margin-right: min(0.5rem, calc(1vw - 1rem));
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -87,13 +85,12 @@ body {
     width: 100%;
     height: fit-content;
     background:#FFF2DF;
-    color: #5B5B5B;
+    color: #111111;
     box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
     transition: padding 500ms cubic-bezier(0.39, 0.575, 0.565, 1);
 }
 
-#content {
-    padding-top: var(--bar-height);
+main {
     overflow-y: scroll;
 }
 
@@ -111,7 +108,7 @@ body {
     align-items: center;
     justify-content: center;
     color: #FFF2DF;
-    padding: 0rem 0.3rem 0rem 0.3rem;
+    padding: 0rem 0.5rem 0rem 0.5rem;
     overflow: hidden;
 }
 
@@ -119,6 +116,10 @@ body {
     transition: filter 100ms cubic-bezier(0.39, 0.575, 0.565, 1);
     padding: 0.5rem;
     cursor: pointer;
+}
+
+#hamburger {
+    margin-right: auto;
 }
 
 #nav-blackout {
@@ -140,6 +141,7 @@ body {
     height: 65%;
     font-weight: 400;
     margin-right: auto;
+    margin-left: 0.5rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -204,9 +206,6 @@ body {
     user-select: none;
 }
 
-#hamburger {
-    margin-right: auto;
-}
 
 .hamburger {
     display: flex;

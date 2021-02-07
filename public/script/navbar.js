@@ -19,6 +19,7 @@ let navbar = (function () {
     let desktop_bar = document.getElementById('desktop-bar');
     let desktop_cart = document.getElementById('desktop-cart');
     let desktop_exit = document.getElementById('desktop-exit');
+    let main = document.getElementById('content');
 
     // Initliase bar position and variables
     let ongoingTouches, minY, maxY, curY, barLock, goingDown, vh, vw;
@@ -68,9 +69,9 @@ let navbar = (function () {
             
             Array.from(nav_containers).forEach(cont => cont.style.pointerEvents = 'all')
             desktop_hamburger.style.display = 'none';
-            hamburger.style.opacity = 1;
-            hamburger.style.pointerEvents = 'all';
+            hamburger.style.display = 'flex';
             hideDesktopBar()
+            main.style.paddingTop = `${bar.clientHeight - 4}px`;
         } 
 
         // Desktop Only Effects
@@ -80,10 +81,10 @@ let navbar = (function () {
                 cont.style.pointerEvents = 'none';
             }) // Hidden Area overflow 
             desktop_hamburger.style.display = 'block';
-            hamburger.style.opacity = 0;
-            hamburger.style.pointerEvents = 'none'
+            hamburger.style.display = 'none'
             showDesktopBar()
             desktop_hamburger.style.opacity = 0;
+            main.style.paddingTop = `${bar.clientHeight + desktop_bar.clientHeight - 4}px`;
         }
 
         // Re-asign values
