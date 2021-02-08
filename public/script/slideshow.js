@@ -5,7 +5,6 @@ function Slideshow(target, widthTarget=null, options=null) {
         else return widthTarget.clientWidth;
     }
 
-
     // Properties
     this.cont = document.getElementById(target);
     this.pos = 0;
@@ -14,11 +13,10 @@ function Slideshow(target, widthTarget=null, options=null) {
     this.width = getWidth();
     this.options = options || {
         easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)',
-        duration: 1000
+        duration: 550
     };
 
-    // Apply styling changes
-    // Background Colour
+    // Apply Background Colour Changes
     let firstColour = window.getComputedStyle(this.slides[1], null).getPropertyValue('background-color') || window.getComputedStyle(this.cont, null).getPropertyValue('background-color');
     let lastColour = window.getComputedStyle(this.slides[this.slides.length-1], null).getPropertyValue('background-color');
     this.slides[0].style.backgroundColor = firstColour;
@@ -48,7 +46,6 @@ function Slideshow(target, widthTarget=null, options=null) {
   
         // Animate and change pos property
         let anim = animateTo(this.cont, keyframes, options)
-        console.log('moveto')
         this.pos = target - 1;
         this.curX = width * target;
     
@@ -62,6 +59,10 @@ function Slideshow(target, widthTarget=null, options=null) {
             }
         }));
 
+        // Return old colour
+        anim.addEventListener('finish', () => {
+            this.cont.parentNode.style.backgroundColor = oldColour
+        })
         return true
     }
 
