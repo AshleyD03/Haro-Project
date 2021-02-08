@@ -429,7 +429,7 @@ let navbar = (function () {
     }
 
     function showDesktopBasket () {
-        nav_blackout.style.opacity = 1;
+        nav_blackout.style.opacity = 0.8;
         nav_blackout.style.pointerEvents = 'all';
 
         let options = {

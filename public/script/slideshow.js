@@ -15,6 +15,8 @@ function Slideshow(target, widthTarget=null, options=null) {
         easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)',
         duration: 550
     };
+    this.styleClassOn;
+    this.styleClassOff;
 
     // Apply Background Colour Changes
     let firstColour = window.getComputedStyle(this.slides[1], null).getPropertyValue('background-color') || window.getComputedStyle(this.cont, null).getPropertyValue('background-color');
@@ -23,8 +25,11 @@ function Slideshow(target, widthTarget=null, options=null) {
     this.cont.parentNode.style.backgroundColor = lastColour;
   
     // Move slideshow view port to show slides array target pos
-    this.moveTo = (target, duration=null) => {
+    this.moveTo = (target, duration=null, styleClass=null) => {
+        
         target += 1
+        let currentSlide = this.slides[this.pos+1];
+        let targetSlide = this.slides[target];
 
         // Change container's background colour to prevent animation clipping
         let oldColour = this.cont.parentNode.style.backgroundColor;
@@ -48,6 +53,40 @@ function Slideshow(target, widthTarget=null, options=null) {
         let anim = animateTo(this.cont, keyframes, options)
         this.pos = target - 1;
         this.curX = width * target;
+
+        // Slides on / off effects using class's
+        // Add slide off effect
+        if (this.styleClassOff) {
+
+            if (currentSlide === targetSlide) return 
+
+            let class_ = this.styleClassOff;
+            this.slides.forEach(slide => {
+                slide.classList.remove(class_)
+                slide.classList.add(class_)
+            }) 
+            targetSlide.classList.remove(class_)
+        }
+        // Add slide on effect
+        if (this.styleClassOn) {
+
+            if (currentSlide === targetSlide) return 
+
+            let class_ = this.styleClassOn;
+            targetSlide.classList.add(class_)
+            setTimeout(function () {
+                targetSlide.classList.remove(class_)
+            }, 700)
+        }
+
+        
+        if (this.styleClass) {
+            let slide = this.slides[target]
+            slide.classList.add(this.styleClass)
+            setTimeout(function () {
+                slide.classList.remove(this.styleClass)
+            }, 2500)
+        }
     
         this.cont.dispatchEvent(new CustomEvent('moveTo', {
             detail: {

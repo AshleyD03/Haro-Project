@@ -8,11 +8,13 @@ ss_container.addEventListener('moveTo', e => {
 })
 
 let slideShow = new Slideshow('slideshow-container', document.getElementById('mob-container'));
+slideShow.styleClassOn = 'slide-on';
+slideShow.styleClassOff = 'slide-off'
 
 // Add controll event listeners
 for (let i = 0; i < ss_controlls.length; i++) {
     let cont = ss_controlls[i];
     cont.addEventListener('click', e => {
-        slideShow.moveTo(i);
+        slideShow.moveTo(i, null);
     })
 }

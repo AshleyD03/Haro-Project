@@ -41,6 +41,11 @@ body {
     flex-direction: column;
 }
 
+#desktop-bar a:hover div {
+    transition: transform 500ms ease-in-out;
+    transform: translateY(-4px);
+}
+
 .db-text {
     margin-top: 6px;
     font-size: 1.5rem;
