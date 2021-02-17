@@ -15,6 +15,6 @@ slideShow.styleClassOff = 'slide-off'
 for (let i = 0; i < ss_controlls.length; i++) {
     let cont = ss_controlls[i];
     cont.addEventListener('click', e => {
-        slideShow.moveTo(i, null);
+        slideShow.moveTo(i);
     })
 }

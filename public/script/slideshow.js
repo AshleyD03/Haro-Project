@@ -17,6 +17,7 @@ function Slideshow(target, widthTarget=null, options=null) {
     };
     this.styleClassOn;
     this.styleClassOff;
+    let body = document.body;
 
     // Apply Background Colour Changes
     let firstColour = window.getComputedStyle(this.slides[1], null).getPropertyValue('background-color') || window.getComputedStyle(this.cont, null).getPropertyValue('background-color');
@@ -25,7 +26,7 @@ function Slideshow(target, widthTarget=null, options=null) {
     this.cont.parentNode.style.backgroundColor = lastColour;
   
     // Move slideshow view port to show slides array target pos
-    this.moveTo = (target, duration=null, styleClass=null) => {
+    this.moveTo = (target, duration=null) => {
         
         target += 1
         let currentSlide = this.slides[this.pos+1];
@@ -33,7 +34,10 @@ function Slideshow(target, widthTarget=null, options=null) {
 
         // Change container's background colour to prevent animation clipping
         let oldColour = this.cont.parentNode.style.backgroundColor;
-        this.cont.parentNode.style.backgroundColor = this.slides[target].style.backgroundColor;
+        let newColour = this.slides[target].style.backgroundColor
+        this.cont.parentNode.style.backgroundColor = newColour;
+        body.style.backgroundColor = newColour;
+
 
         // Check if target input valid 
         if (target !== 0 && !target || target - 2 > this.slides.length || typeof target !== 'number' || target % 1 !== 0) {
