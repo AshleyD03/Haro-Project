@@ -13,6 +13,46 @@ body {
     color: #5B5B5B;
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+    height: 4px;
+    
+}
+::-webkit-scrollbar-thumb {
+    background: #33333363;
+}
+
+::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+::-webkit-scrollbar-track-piece {
+    background-color:rgba(0, 0, 0, 0.1) ;
+}
+
+::-webkit-scrollbar-track-piece:end {
+    margin-right: 10vw; 
+  }
+  
+  ::-webkit-scrollbar-track-piece:start {
+    margin-left: 10vw;
+  }
+
+body::-webkit-scrollbar {
+    width: 8px;
+    height: 9px;
+    margin: 4px;
+}
+body::-webkit-scrollbar-thumb {
+    background: linear-gradient(13deg, #33333356);
+}
+body::-webkit-scrollbar-thumb:hover{
+    background: linear-gradient(84deg, #33333334);
+}
+body::-webkit-scrollbar-track{
+    background-color: #FFF2DF;
+    border-radius: 0px;
+}
+
 :root {
     --bar-height: 4rem;
     --hidden-height: calc(100vh - 9em);
@@ -44,6 +84,13 @@ body {
 #desktop-bar a:hover div {
     transition: transform 500ms ease-in-out;
     transform: translateY(-4px);
+    filter: drop-shadow( 4px 4px 0px rgba(0, 0, 0, 0.1));
+}
+
+#desktop-bar a:not(:hover) div {
+    transition: transform 500ms ease-in-out;
+    transform: translateY(0px);
+    filter: drop-shadow( 4px 4px 0px rgba(0, 0, 0, 0.1));
 }
 
 .db-text {
@@ -91,7 +138,7 @@ body {
     height: fit-content;
     background:#FFF2DF;
     color: #111111;
-    box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.1);;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     transition: padding 500ms cubic-bezier(0.39, 0.575, 0.565, 1);
 }
 

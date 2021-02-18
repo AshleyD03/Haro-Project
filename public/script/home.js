@@ -18,3 +18,26 @@ for (let i = 0; i < ss_controlls.length; i++) {
         slideShow.moveTo(i);
     })
 }
+
+let a = Array.from(document.getElementsByClassName('product'));
+a.forEach(b=> {
+
+    let x = (y) => {
+        let d = y.getBoundingClientRect()
+        console.log(y)
+        console.log({
+            top: d.top,
+            right: d.right,
+            bottom: d.bottom,
+            left: d.left
+        }) 
+    }
+        
+    b.children[0].addEventListener('click', e => {
+        e.preventDefault();
+
+        let c = e.currentTarget;
+        x(c);
+    })
+
+})
