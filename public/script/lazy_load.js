@@ -2,23 +2,41 @@
     let lazy_images = Array.from(document.getElementsByClassName('lazy-load'));
     let scrollers = [document, ...Array.from(document.getElementsByClassName('scroll'))];
 
+    function getElementPostions (ele) {
+        let top = 0;
+        let left = 0;
+
+        let climb = (child) => {
+            let parent = child.parentNode;
+            top += child.offsetTop;
+            left += child.offsetLeft;
+
+            if (parent.nodeName !== 'BODY') climb(parent)
+        }
+
+        climb(ele)
+        return {top: top, left: left}
+    }
+
+    function getViewPositions () {
+        
+    }
+
     let checkImages = () => {
         
         
 
         lazy_images.forEach(img => {
 
+            console.log(img)
             // Check if about to scroll on
-            let scrollX = window.pageYOffset;
+            let scrollX = window.pageXOffset;
             let scrollY = window.pageYOffset;
-            let imgX = img.getBoundingClientRect().top;
-            let imgY = img.getBoundingClientRect().left;
+            let {top, left} = getElementPostions(img);
 
-            console.log(img ,`Y ${imgY} < ${window.innerHeight} + ${scrollY}\nX ${imgX} < ${window.innerWidth} + ${scrollX}`)
+            if (top < (window.innerHeight + scrollY + 100) && left < (window.innerWidth + scrollX + 100)) {
 
-            
-            if (imgY < (window.innerHeight + scrollY) && imgX < (window.innerWidth + scrollX)) {
-
+                //console.log(img, imgX, imgY)
                 // change src to data-src and remove from list
                 img.src = img.dataset.src;
                 lazy_images.splice(lazy_images.indexOf(img), 1);

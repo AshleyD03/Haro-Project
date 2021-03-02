@@ -10,6 +10,7 @@ let basket = (function() {
     
         this.basket;
         this.currencySymbol = '£';
+        this.currency = 'gdp';
     
         // basket.appendItem('cloth', 'wewdawdw', 'this is description', 1499, 1, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ebayimg.com%2Fimages%2Fi%2F252443206275-0-1%2Fs-l1000.jpg&f=1&nofb=1']) 
         // basket.appendItem('cloth2', 'Epic White Shirt', 'this is description', 999, 2, ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flerageshirts.com%2Fwp-content%2Fuploads%2F2013%2F10%2Fchallenge-accepted-shirt-meme-rage-face-funny-tee.jpg&f=1&nofb=1'], ['Medium'])
@@ -106,9 +107,9 @@ let basket = (function() {
                 // Add Values
                 img.src = item.imageurl[0];
                 name.innerHTML = item.name;
-                price.innerHTML = `${this.currencySymbol}${this.penceToPound(item.price)}`;
+                price.innerHTML = `${this.currencySymbol}${this.penceToPound(item.price[this.currency])}`;
                 quantity.innerHTML = item.quantity // Implement quantity
-                total.innerHTML = `${this.currencySymbol}${this.penceToPound(item.price * item.quantity)}`
+                total.innerHTML = `${this.currencySymbol}${this.penceToPound(item.price[this.currency] * item.quantity)}`
                 item.affix.forEach(text => affix.appendChild(createAffix(text)));
 
                 // Append Element
@@ -119,7 +120,7 @@ let basket = (function() {
                 item_targets.forEach(target => target.appendChild(line.cloneNode(true)));
 
                 // Increase Iteration Counter
-                overallTotal += item.price * item.quantity;
+                overallTotal += item.price[this.currency] * item.quantity;
                 basketLength += 1 * item.quantity;
             })
     

@@ -13,45 +13,63 @@ body {
     color: #5B5B5B;
 }
 
-::-webkit-scrollbar {
-    width: 8px;
-    height: 4px;
-    
-}
-::-webkit-scrollbar-thumb {
-    background: #33333363;
+.material-icons {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
 }
 
-::-webkit-scrollbar-track{
-    background-color: transparent;
+a:link {
+    text-decoration: none;
 }
-::-webkit-scrollbar-track-piece {
+  
+a:visited {
+    text-decoration: none;
+}
+  
+a:hover {
+    text-decoration: none;
+}
+   
+a:active {
+    text-decoration: none;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+.scroll::-webkit-scrollbar-thumb {
+    background-color: #33333363;
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #333333;
+}
+
+.scroll::-webkit-scrollbar-track{
+    background-color: transparent;
+    width: 10%;
+}
+.scroll::-webkit-scrollbar-track-piece {
     background-color:rgba(0, 0, 0, 0.1) ;
 }
 
-::-webkit-scrollbar-track-piece:end {
-    margin-right: 10vw; 
-  }
+.scroll::-webkit-scrollbar-track-piece:end {
+    margin-right: calc(10vw + max(0px, calc(50vw - 550px))); 
+}
   
-  ::-webkit-scrollbar-track-piece:start {
-    margin-left: 10vw;
-  }
+.scroll::-webkit-scrollbar-track-piece:start {
+    margin-left: calc(10vw + max(0px, calc(50vw - 550px)));
+}
 
-body::-webkit-scrollbar {
-    width: 8px;
-    height: 9px;
-    margin: 4px;
+.scrollhidden::-webkit-scrollbar{
+    display: none;
 }
-body::-webkit-scrollbar-thumb {
-    background: linear-gradient(13deg, #33333356);
-}
-body::-webkit-scrollbar-thumb:hover{
-    background: linear-gradient(84deg, #33333334);
-}
-body::-webkit-scrollbar-track{
-    background-color: #FFF2DF;
-    border-radius: 0px;
-}
+
 
 :root {
     --bar-height: 4rem;
@@ -152,7 +170,7 @@ body::-webkit-scrollbar-track{
 }
 
 main {
-    overflow-y: scroll;
+    overflow: hidden;
 }
 
 #mob-hidden {
@@ -663,6 +681,7 @@ main {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #item-target {
@@ -680,3 +699,4 @@ main {
     overflow-y: scroll;
 }
 */
+

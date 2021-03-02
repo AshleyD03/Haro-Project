@@ -1,7 +1,8 @@
 // New slideshow object
 function Slideshow(target, widthTarget=null, options=null) {
     let getWidth = () =>  {
-        if (!widthTarget) return (this.cont.clientWidth / this.slides.length)
+        if (widthTarget === null) return (this.cont.clientWidth / this.slides.length);
+        else if (widthTarget === false )return window.getComputedStyle(this.slides[0], 'width');
         else return widthTarget.clientWidth;
     }
 
@@ -17,7 +18,6 @@ function Slideshow(target, widthTarget=null, options=null) {
     };
     this.styleClassOn;
     this.styleClassOff;
-    let body = document.body;
 
     // Apply Background Colour Changes
     let firstColour = window.getComputedStyle(this.slides[1], null).getPropertyValue('background-color') || window.getComputedStyle(this.cont, null).getPropertyValue('background-color');
@@ -36,7 +36,7 @@ function Slideshow(target, widthTarget=null, options=null) {
         let oldColour = this.cont.parentNode.style.backgroundColor;
         let newColour = this.slides[target].style.backgroundColor
         this.cont.parentNode.style.backgroundColor = newColour;
-        body.style.backgroundColor = newColour;
+        
 
 
         // Check if target input valid 
@@ -98,7 +98,8 @@ function Slideshow(target, widthTarget=null, options=null) {
                 slideshow: this,
                 animation: anim,
                 slides: this.slides,
-                target: target-1
+                target: target-1,
+                newColour: newColour
             }
         }));
 
@@ -214,6 +215,7 @@ function Slideshow(target, widthTarget=null, options=null) {
 
     // To adjust transformation with window resize
     let onResize = e => {
+        if (widthTarget === false) return;
         this.width = getWidth()
         this.curX = this.width * (this.pos + 1);
         this.cont.style.transform = `translateX(-${this.curX}px)`;
