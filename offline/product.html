@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/style/navbar.css">
+    <link rel="stylesheet" href="../public/style/product.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="../public/script/backward_support.js"></script>
+</head>
+<body>
+    <div id="mob-container">
+        <div id="mob-hidden">
+            <div id="nav-cont" class="nav-container nav-cont-list2">
+                <div class="nav-option2">
+                    <a href="" class="nav-link">
+                        <span>
+                            <img src="../public/images/icons/Shop-Everything.svg">
+                        </span>
+                        <div class="s-text">
+                            Shop Everything
+                        </div>
+                    </a>
+                </div> 
+                <div class="nav-option2 CFDCE1">
+                    <a href="" class="nav-link">
+                        <span>
+                            <img src="../public/images/icons/New.svg">
+                        </span>
+                        <div class="s-text">
+                            New
+                        </div>
+                    </a>
+                </div>
+                <div class="nav-option2 FFD595">
+                    <a href="" class="nav-link">
+                        <span>
+                            <img src="../public/images/icons/Art.svg">
+                        </span>
+                        <div class="s-text">
+                            Art
+                        </div>
+                    </a>
+                </div>
+                <div class="nav-option2 FFC1D6">
+                    <a href="" class="nav-link">
+                        <span style="height: 100%;">
+                            <img src="../public/images/icons/Stickers.svg">
+                        </span>
+                        
+                        <div class="s-text">
+                            Stickers
+                        </div>
+                    </a>
+                </div>
+                <div class="nav-option2">
+                    <a href="" class="nav-link">
+                        <span>
+                            <img src="../public/images/icons/About-us.svg">
+                        </span>
+                        <div class="s-text">
+                            About us
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div id="cart-cont" class="nav-container">
+                <div id="cart-white" class="cart-white">
+
+                    <div class="cart-empty">
+                        <img id="cart-empty-image" src="../public/images/icons/Colour-wheel.svg" alt="A colour-wheel">
+                        <div>
+                            Your Cart is empty
+                        </div>
+                    </div>
+
+                    <div id="item-target" class="item-target"></div>
+
+                    <template id="template-cart-item">
+                        <div class="cart-item">
+                            <div class="item-title"> 
+                                <img src="../public/images/art/Frame 41.png" alt="white shirt">
+                                <div>
+                                    <span> White shirt - Medium </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="item-divide">
+                                    <span> Price </span>
+                                    <span> £10.00 </span>
+                                </div>
+                                <div class="item-divide">
+                                    <span> Quanity </span> 
+                                    <span> 1 </span>
+                                </div>
+                                <div class="item-divide">
+                                    <span> Total </span>   
+                                    <span> £10.00 </span>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template id="template-item-line">
+                        <center>
+                            <span class="item-line"></span>
+                        </center>
+                    </template>
+                    
+                </div>
+
+                <div id="cart-buttons" class="cart-buttons">
+
+                    <div id="cart-total" class="cart-bar">
+                        <span>
+                            Current Total:
+                        </span>
+                        <span class="cart-total-target">
+                            £10
+                        </span>
+                    </div>
+                    <div id="cart-container">
+                        <div class="cart-view cart-bar">
+                            Edit Cart
+                        </div>
+                        <div class="cart-checkout cart-bar">
+                            Checkout Now
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="pull-arrow">
+
+            </div>
+        </div>
+
+        <div id="mob-bar">
+            <div id="hamburger" class="nav-summon hamburger" alt="Click to reveal menu" class="nav-summon" value="nav-cont">
+                <label for="hamburger">
+                    <span class="ham-slice"></span>
+                    <span class="ham-slice"></span>
+                    <span class="ham-slice"></span>
+                </label>
+            </div>
+            <div id="logo">
+                <img id="logo-main" src="../public/images/logos/YB.PNG" alt="Haro clothing" class="opacity-trans">
+                <img id="logo-arrow" src="../public/images/icons/Flat-arrow.svg" alt="Swipe down or click me to hide" class="opacity-trans">
+            </div>
+
+            <div id="desktop-hamburger" class="hamburger hv-bright" alt="Click to reveal menu">
+                <label for="desktop-hamburger">
+                    <span class="ham-slice"></span>
+                    <span class="ham-slice"></span>
+                    <span class="ham-slice"></span>
+                </label>
+            </div>
+
+            <!-- <img id="title" src="images/Haro はろ.png" alt='Welcome to Haro Clothing'> -->
+
+            <img type="click" id="basket" src="../public/images/icons/Basket.svg" alt="Shopping Basket" class="nav-summon hv-bright" value="cart-cont">
+                
+            <label for="#basket" id="basket-label" class="hv-bright">
+                <div> 0 </div>
+            </label>
+        </div>
+
+        <div id="desktop-bar">
+            <a href="" class="db-option hv-bright">
+                <div class="db-text">
+                    Art
+                </div>
+                <span class="db-bar" style="background-color: #FFCB7C;"></span>
+            </a>
+            <a href="" class="db-option hv-bright">
+                <div class="db-text">
+                    New In
+                </div>
+                <span class="db-bar" style="background-color: #86B6E2;"></span>
+            </a>
+            <a href="" class="db-option hv-bright">
+                <div class="db-text">
+                    Shop Everything
+                </div>
+                <span class="db-bar" style="background-color: #FECFFF;"></span>
+            </a>
+            <a href="" class="db-option hv-bright">
+                <div class="db-text">
+                    Stickers
+                </div>
+                <span class="db-bar" style="background-color: #EC9F9F;"></span>
+            </a>
+            <a href="" class="db-option hv-bright">
+                <div class="db-text">
+                    About Us
+                </div>
+                <span class="db-bar" style="background-color: #D0E495;"></span>
+            </a>
+        </div>
+    </div>
+    <div id="desktop-cart">
+        <div id="dc-white">
+
+            <div id="dc-top">
+                <h1 class="s-text">
+                    Basket
+                </h1>
+    
+                <div id="desktop-exit">
+                    <img src="../public/images/icons/Cross.svg">
+                </div>
+            </div>
+
+            <div id="dc-target" class="item-target"></div>
+
+            <div class="cart-empty">
+                <img id="cart-empty-image" src="../public/images/icons/Colour-wheel.svg" alt="A colour-wheel">
+                <div style="padding-bottom: 40vh;">
+                    Your Cart is empty
+                </div>
+            </div>
+        </div>
+
+        <div id="dc-buttons" class="cart-buttons">
+            <div id="cart-total" class="cart-bar">
+                <span>
+                    Current Total:
+                </span>
+                <span class="cart-total-target">
+                    £10
+                </span>
+            </div>
+            <div id="cart-container">
+                <div class="cart-view cart-bar">
+                    Edit Cart
+                </div>
+                <div class="cart-checkout cart-bar">
+                    Checkout Now
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="back-bar">
+        <a href="">
+            <div>
+                £50+ Free Shipping in the UK :P
+            </div>
+        </a>
+        <span id="back-bar-x" class="material-icons">
+            clear
+        </span>
+    </div>
+    <div id="nav-blackout"></div>
+    
+    <main id="content">
+        
+            <div class="flex-flow">
+                <div class="ff-item1" id="slideshow">
+    
+                    <div id="ss-margin">
+
+                        <div class="ss-home" id="product-1">
+                            <div class="slideshow-container scrollhidden">
+                                <span class="slide">
+                                    <img src="../public/images/item/redshirt1.webp">
+                                </span><span class="slide">
+                                    <img src="../public/images/item/redshirt2.webp">
+                                </span><span class="slide">
+                                    <img src="../public/images/item/redshirt3.webp">
+                                </span>
+                            </div>
+                            <div id="ss-controlls">
+                                <span class="material-icons ss-left">
+                                    west
+                                </span>
+                                <span class="material-icons ss-right">
+                                    east
+                                </span>
+                            </div>
+                            <div class="ss-bar"> 
+                            </div>
+                        </div>
+
+                        <div class="ss-home" id="product-2">
+                            <div class="slideshow-container scrollhidden">
+                                <span class="slide">
+                                    <img src="../public/images/item/blueshirt1.webp">
+                                </span><span class="slide">
+                                    <img src="../public/images/item/blueshirt2.webp">
+                                </span><span class="slide">
+                                    <img src="../public/images/item/blueshirt3.webp">
+                                </span>
+                            </div>
+                            <div id="ss-controlls">
+                                <span class="material-icons ss-left">
+                                    west
+                                </span>
+                                <span class="material-icons ss-right">
+                                    east
+                                </span>
+                            </div>
+                            <div class="ss-bar"> 
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    
+    
+                </div>
+                <div class="ff-item2 infomation">
+                    <div class="card">
+                
+                        <div class="addToBasket" id="addToBasket">
+                            <span>
+                                Add to basket
+                            </span>
+                        </div>
+
+                        <div class="colour">
+                            <h2>
+                                Colours
+                            </h2>
+                            <div class="options flow-right" id="colour-options">
+                                <span class="selected block" style="background-color: #C65E5E;"></span>
+                                <span class="not-selected block" style="background-color: #A45F83;"></span>
+                                <span class="not-selected block" style="background-color: #FFC266;"></span>
+                            </div>
+                        </div>
+
+                        <div class="sizes">
+                            <h2>
+                                Sizes
+                            </h2>
+                            <div class="options flow-right" id="size-options">
+                                <span class="block">S</span>
+                                <span class="block">M</span>
+                                <span class="block">L</span>
+                                <span class="block">XL</span>
+                            </div>
+                        </div>
+
+                        <div class="head" id="title-options">
+                            <h1>
+                                Red Shirts 
+                            </h1>
+                            <h3> £10.99 </h3>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+    </main>
+
+    <script>
+        let products =  {
+            styleList: {
+                redShirt: {
+                    title: 'Red Shirt :P',
+                    tagName: 'redShirt',
+                    iconColour: '#C65E5E',
+                    sizes: {
+                        s: false,
+                        m: true,
+                        l: true,
+                        xl: true
+                    },
+                    code: 'chd001-',
+                    price: {
+                        gdp: 3000
+                    },
+                    slideShowId: 'product-1',
+                    visible: true,
+                    description: [
+                    'Have you ever wanted to be amongst the clouds while wearing your ever-so-simple jumper? Well, unfortunately we can’t make that happen. But we can provide the next best thing, with our 80% recycled cotton and 20% polyester blend, Haro’s cloud hoodie can make you feel like the next best thing.'
+                    ]
+                },
+                blueShirt: {
+                    title: 'Epic Blue Shirt',
+                    tagName: 'blueShirt',
+                    iconColour: '#7FA1C5',
+                    sizes: {
+                        s: true,
+                        m: true,
+                        l: false,
+                        xl: false
+                    },
+                    code: 'chd002-',
+                    price: {
+                        gdp: 1099
+                    },
+                    slideShowId: 'product-2',
+                    visible: true,
+                    description: [
+                    'Have you ever wanted to be amongst the clouds while wearing your ever-so-simple jumper? Well, unfortunately we can’t make that happen. But we can provide the next best thing, with our 80% recycled cotton and 20% polyester blend, Haro’s cloud hoodie can make you feel like the next best thing.'
+                    ]
+                },
+            },
+            preset: {
+                style: 'red',
+            },
+        }
+    </script>
+
+    <script src="../public/script/lazy_load.js"></script>
+    <script src="../public/script/navbar.js"></script>
+    <script src="../public/script/basket.js"></script>
+    <script src="../public/script/slideshow.js"></script>
+    <script src="../public/script/product.js"></script>
+</body>
+</html>
