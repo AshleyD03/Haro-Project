@@ -5,15 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../public/style/navbar.css">
-    <link rel="stylesheet" href="../public/style/product.css">
+
+    <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Custom styling -->
+    <link rel="stylesheet" href="../public/style/navbar.css">
+    <link rel="stylesheet" href="../public/style/product.css">
+    <link rel="stylesheet" href="../public/style/info-bar.css">
+
+    <!-- Preload script -->
     <script src="../public/script/backward_support.js"></script>
 </head>
 <body>
-    <div id="mob-container">
+    <div id="mob-container" class="help" data-helpMsg="contains links and basket button">
         <div id="mob-hidden">
             <div id="nav-cont" class="nav-container nav-cont-list2">
                 <div class="nav-option2">
@@ -140,19 +147,19 @@
         </div>
 
         <div id="mob-bar">
-            <div id="hamburger" class="nav-summon hamburger" alt="Click to reveal menu" class="nav-summon" value="nav-cont">
+            <div id="hamburger" class="nav-summon hamburger help" data-help="Click to reveal menu" alt="Click to reveal menu" class="nav-summon" value="nav-cont">
                 <label for="hamburger">
                     <span class="ham-slice"></span>
                     <span class="ham-slice"></span>
                     <span class="ham-slice"></span>
                 </label>
             </div>
-            <div id="logo">
+            <a id="logo">
                 <img id="logo-main" src="../public/images/logos/YB.PNG" alt="Haro clothing" class="opacity-trans">
                 <img id="logo-arrow" src="../public/images/icons/Flat-arrow.svg" alt="Swipe down or click me to hide" class="opacity-trans">
-            </div>
+            </a>
 
-            <div id="desktop-hamburger" class="hamburger hv-bright" alt="Click to reveal menu">
+            <div id="desktop-hamburger" class="hamburger hv-bright help" data-helpMsg="Click to reveal menu" data-helpFont="1rem" alt="Click to reveal menu">
                 <label for="desktop-hamburger">
                     <span class="ham-slice"></span>
                     <span class="ham-slice"></span>
@@ -169,7 +176,7 @@
             </label>
         </div>
 
-        <div id="desktop-bar">
+        <div id="desktop-bar" class="help" data-helpMsg="Navigate to other pages">
             <a href="" class="db-option hv-bright">
                 <div class="db-text">
                     Art
@@ -244,22 +251,29 @@
             </div>
         </div>
     </div>
-    <div id="back-bar">
+
+
+    <div class="info-bar" id="help-bar">
         <a href="">
             <div>
-                £50+ Free Shipping in the UK :P
+                News sites are spooky, Need help?
             </div>
         </a>
-        <span id="back-bar-x" class="material-icons">
+        <span class="material-icons info-bar-icon">
+            check
+        </span>
+        <span class="material-icons info-bar-icon">
             clear
         </span>
     </div>
+
+    
     <div id="nav-blackout"></div>
     
     <main id="content">
         
             <div class="flex-flow">
-                <div class="ff-item1" id="slideshow">
+                <div class="ff-item1 help" id="slideshow" data-helpMsg="Scroll through product images">
     
                     <div id="ss-margin">
 
@@ -313,9 +327,9 @@
     
                 </div>
                 <div class="ff-item2 infomation">
-                    <div class="card">
+                    <div class="card help" data-helpMsg="Scroll through product images">
                 
-                        <div class="addToBasket" id="addToBasket">
+                        <div class="addToBasket" id="addToBasket" data-helpMsg="Add item to basket">
                             <span>
                                 Add to basket
                             </span>
@@ -406,6 +420,7 @@
         }
     </script>
 
+    <script src="../public/script/info-bar.js"></script>
     <script src="../public/script/lazy_load.js"></script>
     <script src="../public/script/navbar.js"></script>
     <script src="../public/script/basket.js"></script>
