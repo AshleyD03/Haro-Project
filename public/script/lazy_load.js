@@ -27,8 +27,8 @@
             let {top, right, bottom, left} = getElementPostions(img);
             
 
-            let checkY = (y + 200 > top || bottom < window.scrollY - 200)
-            let checkX = (x + 200 > left || right < window.scrollX - 200)
+            let checkY = (y + 300 > top || bottom < window.scrollY - 300)
+            let checkX = (x + 300 > left || right < window.scrollX - 300)
 
             if (checkX && checkY) {
 
