@@ -6,9 +6,20 @@ const port = process.env.PORT || 3000;
 const url = process.env.URL || 'http://localhost:'
 
 
-app.use('/public', express.static('public'))
+app.use(express.static('public'))
 
-app.get('/home/', (req, res) => {
+/*
+
+    Currently using basic html pages, to test out page features / build styling.
+    Later, they will be turned into handlebar format views, with data pulled from firebase
+    and cached.
+
+*/
+
+app.get(['/home/','/home.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'offline/home.html'))
+})
+app.get(['/product/','/product.html'], (req, res) => {
     res.sendFile(path.join(__dirname, 'offline/home.html'))
 })
 
