@@ -6,11 +6,10 @@ body {
     min-width: 100vw;
     min-height: 150vh;
     overflow-x: hidden;
-    scroll-behavior: unset;
     background-color: #FFC266;
     font-family: 'Roboto', sans-serif;
-    scroll-behavior: smooth;
     color: #5B5B5B;
+    scroll-behavior: smooth;
 }
 
 .material-icons {
@@ -86,6 +85,7 @@ a:active {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #FFF2DF;
 }
 
 #desktop-bar a {
