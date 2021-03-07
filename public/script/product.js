@@ -1,12 +1,3 @@
-// Back bar 
-let backBar = document.getElementById('back-bar');
-document.getElementById('back-bar-x').addEventListener('click', e => {
-    backBar.style.opacity = 0;
-    setTimeout(function() {
-        backBar.style.display = 'none';
-    }, 550);
-})
-
 // Get styleList from already init product object
 let styleList = products.styleList;
 
