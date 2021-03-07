@@ -31,6 +31,8 @@ let navbar = (function () {
         initBar()
     })
 
+    logo.addEventListener('click', e => window.location.href = 'home.html')
+
     // Move bar and set vairables
     function initBar() {
         vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
@@ -72,6 +74,7 @@ let navbar = (function () {
             hamburger.style.display = 'flex';
             hideDesktopBar()
             main.style.paddingTop = `${bar.clientHeight - 4}px`;
+            desktop_bar.style.display = 'none';
         } 
 
         // Desktop Only Effects
@@ -80,6 +83,7 @@ let navbar = (function () {
             Array.from(nav_containers).forEach(cont => {
                 cont.style.pointerEvents = 'none';
             }) // Hidden Area overflow 
+            desktop_bar.style.display = 'flex';
             desktop_hamburger.style.display = 'block';
             hamburger.style.display = 'none'
             showDesktopBar()
