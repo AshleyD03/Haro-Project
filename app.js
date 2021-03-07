@@ -6,7 +6,8 @@ const port = process.env.PORT || 3000;
 const url = process.env.URL || 'http://localhost:'
 
 
-app.use(express.static('public'))
+app.use('/public', express.static('public'))
+//app.use(express.static('public'))
 
 /*
 
@@ -16,12 +17,14 @@ app.use(express.static('public'))
 
 */
 
-app.get(['/home/','/home.html'], (req, res) => {
+app.get(['/','/home/','/home.html'], (req, res) => {
     res.sendFile(path.join(__dirname, 'offline/home.html'))
 })
+
 app.get(['/product/','/product.html'], (req, res) => {
     res.sendFile(path.join(__dirname, 'offline/home.html'))
 })
+
 
 app.listen(port, () => {
     console.log(`Server listening at ${url}${port}/home`)
