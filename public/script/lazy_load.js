@@ -3,38 +3,36 @@
     let scrollers = [document, ...Array.from(document.getElementsByClassName('scroll'))];
 
     function getElementPostions (ele) {
-        let top = 0;
-        let left = 0;
-
-        let climb = (child) => {
-            let parent = child.parentNode;
-            top += child.offsetTop;
-            left += child.offsetLeft;
-
-            if (parent.nodeName !== 'BODY') climb(parent)
-        }
-
-        climb(ele)
-        return {top: top, left: left}
-    }
-
-    function getViewPositions () {
         
+        let pos = ele.getBoundingClientRect();
+        return {
+            top: pos.top + window.scrollY,
+            right: pos.right + window.scrollX,
+            bottom: pos.bottom + window.scrollY,
+            left: pos.right + window.scrollX
+        }
     }
+
+    // Cross browser height && width
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
     let checkImages = () => {
-        
-        
 
+        let y = vh + window.scrollY;
+        let x = vw + window.scrollX;
         lazy_images.forEach(img => {
 
-            console.log(img)
             // Check if about to scroll on
-            let scrollX = window.pageXOffset;
-            let scrollY = window.pageYOffset;
-            let {top, left} = getElementPostions(img);
+            let {top, right, bottom, left} = getElementPostions(img);
+            
 
-            if (top < (window.innerHeight + scrollY + 100) && left < (window.innerWidth + scrollX + 100)) {
+            let checkY = (y + 200 > top || bottom < window.scrollY - 200)
+            let checkX = (x + 200 > left || right < window.scrollX - 200)
+
+            if (checkX && checkY) {
+
+                
 
                 //console.log(img, imgX, imgY)
                 // change src to data-src and remove from list
@@ -57,7 +55,7 @@
     }
 
     // Add event listeners
-    scrollers.forEach(scroll => scroll.addEventListener('scroll', checkImages));
+    scrollers.forEach(scroll => scroll.addEventListener('scroll', checkImages),{passive: true});
     window.addEventListener('resize', checkImages);
     window.addEventListener('orientationChange', checkImages);
 
