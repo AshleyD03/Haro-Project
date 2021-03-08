@@ -151,9 +151,7 @@ function Slideshow(target, widthTarget=null, options=null) {
     })
 
     this.cont.addEventListener('touchend', e => {
-        e.preventDefault()
-
-
+        
         let touches = e.changedTouches;
         for (var i = 0; i < touches.length; i++) {
             let touch = touches[i]
