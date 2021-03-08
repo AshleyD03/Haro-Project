@@ -113,7 +113,6 @@ let navbar = (function () {
     // - = - Navbar Swipes - = -
     // On touch add new touches to ongoingTouches
     container.addEventListener('touchstart', e => {
-        e.preventDefault();
 
         // If desktop mode - stop this feature
         if (isDesktop) return e.stopPropagation();
@@ -123,7 +122,8 @@ let navbar = (function () {
         for (var i = 0; i < touches.length; i++) {
             ongoingTouches.push(copyTouch(touches[i]))
         }
-    }, false)
+        return true;
+    })
 
 
     // Move Touch EVENT 
@@ -171,6 +171,7 @@ let navbar = (function () {
                     document.getElementById(showing).style.opacity = opacity;
                     logoArrowAppear(opacity, false)
                 }
+
                 // Update Touch
                 ongoingTouches[tchIndex] = copyTouch(touch)
 

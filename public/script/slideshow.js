@@ -114,7 +114,6 @@ function Slideshow(target, widthTarget=null, options=null) {
     let ongoingTouches = [];
 
     this.cont.addEventListener('touchstart', e => {
-        e.preventDefault()
 
         // Add Touches to ongoingTouches
         let touches = e.changedTouches;
@@ -124,7 +123,6 @@ function Slideshow(target, widthTarget=null, options=null) {
     })
 
     this.cont.addEventListener('touchmove', e => {
-        e.preventDefault()
 
         let touches = e.changedTouches;
         for (var i = 0; i < touches.length; i++) {
