@@ -22,7 +22,7 @@ app.get(['/','/home/','/home.html'], (req, res) => {
 })
 
 app.get(['/product/','/product.html'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'offline/home.html'))
+    res.sendFile(path.join(__dirname, 'offline/product.html'))
 })
 
 
