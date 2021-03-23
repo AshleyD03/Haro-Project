@@ -11,6 +11,7 @@
             bottom: pos.bottom + window.scrollY,
             left: pos.right + window.scrollX
         }
+        
     }
 
     // Cross browser height && width

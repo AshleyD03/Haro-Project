@@ -191,7 +191,10 @@ let basket = (function() {
                         if (timeDif > maxAge)
                             window.localStorage.removeItem(itemKey);
 
-                    } catch (e) { }
+                    } catch (e) {
+                        console.error(e)
+                    }
+                    
                 }
             };
 

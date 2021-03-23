@@ -111,6 +111,8 @@ let navbar = (function () {
     }
 
     // - = - Navbar Swipes - = -
+
+    
     // On touch add new touches to ongoingTouches
     container.addEventListener('touchstart', e => {
 
